@@ -1,0 +1,9 @@
+#ignore environment files
+.env
+
+#npm tools
+node_modules
+
+#build tools
+build
+
