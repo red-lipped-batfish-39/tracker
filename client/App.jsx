@@ -18,13 +18,19 @@ class App extends Component {
       endDate: '', 
       loginError: '', 
       task: 'login', //task for profile to determine which component to display
+      startDate: '',
+      endDate: '', 
+
     }
+    this.newPeriod = this.newPeriod.bind(this);
     this.changeTask = this.changeTask.bind(this);
     this.logout = this.logout.bind(this);
     this.signup = this.signup.bind(this);
     this.login = this.login.bind(this);
     this.trackInput = this.trackInput.bind(this);
   };
+
+
 
   changeTask (){ //change task in login page to signup
     this.setState({
@@ -36,6 +42,7 @@ class App extends Component {
   trackInput (userInputType, event) {
     //store event target (event input)
       //set state for userInput
+      // console.log('this is trackinput',userInputType, event.target.value)
     this.setState(
       {
         ...this.state, 
@@ -43,6 +50,7 @@ class App extends Component {
       }
     )
   };
+
 
   signup () {
     fetch('/api/signup', {
@@ -144,6 +152,57 @@ class App extends Component {
     })
   };
 
+  newPeriod () { //inside main after LOGIN success
+
+    let token = localStorage.getItem('token')
+    let replacedEndDate; 
+    if(this.state.endDate === '') {
+      replacedEndDate = this.state.startDate //if no declared end date, set it to startDate
+    } else {
+      replacedEndDate = this.state.endDate //set temp variable to endDate, send declared variable in json
+    }
+    fetch('/api/period', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        //send token
+          //start date
+            //end date, if non set to same as start
+        token,
+        startDate: this.state.startDate,
+        endDate: replacedEndDate
+      })
+    })
+    .then( res => res.json())
+    .then( data => {
+      //check if data has periods property
+        //if no periods, send the user "error: dates not saved", no end or start date
+          //reset start & end date
+      if(!data.period) {
+        throw new Error('Error: dates not saved')
+      }
+      //if there is periods prop
+        //we set new state for period
+          //replace start & end date in state
+      this.setState({
+        ...this.state,
+        period: data.periods,
+        startDate: '',
+        endDate: '',
+      })
+    })
+    .catch( (err) => {
+      this.setState({
+        ...this.state,
+        startDate: '',
+        endDate: '',
+      })
+    })
+
+  };
+
   logout() {
     //delete local storage token localStorage.removeItem(token)
       //reset state
@@ -160,6 +219,8 @@ class App extends Component {
       endDate: '', 
       loginError: '',
       task: 'login',
+      startDate: '',
+      endDate: '', 
     })
   };
 
@@ -187,7 +248,12 @@ class App extends Component {
       user = {this.state.user}
       task = {this.state.task}
       /> 
-      <Main /> 
+      <Main 
+      trackInput = {this.trackInput}
+      newPeriod = {this.newPeriod}
+      startDate = {this.state.startDate}
+      endDate = {this.state.endDate}
+      /> 
       
       </div>
     );
