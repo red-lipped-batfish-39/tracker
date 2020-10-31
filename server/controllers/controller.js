@@ -1,5 +1,7 @@
 const db = require('../models/models');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken')
+require('dotenv').config();
 const saltRounds = 10;
 const Controller = {};
 
@@ -33,7 +35,7 @@ Controller.postLogin = (req, res, next)=>{
                 res.locals.error = 'password is incorrect';
               }else{
                 res.locals.username = username;
-                //figure out jwt later
+                res.locals.token = jwt.sign({'username': username, expiresIn:'4h'}, process.env.secret);
               }
               console.log(res.locals)
               next()
@@ -45,7 +47,7 @@ Controller.postLogin = (req, res, next)=>{
 }
 
 Controller.postSignUp = (req, res, next)=>{
-  //initialize variables based on res data
+  //initialize variables based on req data
   let username = req.body.username;
   let email = req.body.email;
   let password = req.body.password;
