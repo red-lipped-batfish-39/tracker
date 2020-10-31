@@ -65,7 +65,7 @@ class App extends Component {
           username: '',
           password: '',
           email: '',
-          task: 'logout'
+          task: 'login'
         })
       } 
       localStorage.setItem('token', data.token)
@@ -75,6 +75,7 @@ class App extends Component {
         username: '',
         password: '',
         email: '', 
+        task: 'logout',
       })
       
     }).catch( (err) => {
@@ -84,6 +85,7 @@ class App extends Component {
         username: '',
         password: '',
         email: '',
+        task: 'login',
       })
     })
   };
