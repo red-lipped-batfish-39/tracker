@@ -11,8 +11,8 @@ router.post('/login', controller.postLogin, (req, res)=>{
 })
 
 
-router.post('/signup', (req, res)=>{
-    
+router.post('/signup', controller.postSignUp, (req, res)=>{
+    res.sendStatus(200)
 })
 
 
