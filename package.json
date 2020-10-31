@@ -27,7 +27,8 @@
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.4.2",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "sass": "^1.28.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
