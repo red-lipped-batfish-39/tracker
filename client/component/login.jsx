@@ -14,15 +14,6 @@ class Login extends Component {
       //user name, pass, button
       <div className="loginContainer">
 
-<<<<<<< HEAD
-        <h4>Sign in here</h4>
-        <label htmlFor="userID"> Username</label>
-        <input type="text" id="userID" name="userID"  label/>
-        <label htmlFor="pwd"> Password</label>
-        <input type="password" id="pwd" name="pwd" />
-        <button>Log In</button>
-  
-=======
       <h1>This is Login</h1>
       <p>{this.props.loginError}</p>
 
@@ -36,7 +27,6 @@ class Login extends Component {
       
       <button onClick = {this.props.changeTask}>Switch to Signup </button>
 
->>>>>>> 14950ada866a194686f4d9e5c172c0caf65152d0
       </div>
     );
   }
