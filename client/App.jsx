@@ -103,6 +103,7 @@ class App extends Component {
     })
     .then( res => res.json())
     .then( data => {
+      
       if(data.error) {
         //send error based on user or pass
           //send login error message
