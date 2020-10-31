@@ -7,7 +7,7 @@ const controller = require('../controllers/controller');
 const router = express.Router();
 
 router.post('/login', controller.postLogin, (req, res)=>{
-    res.sendStatus(200)
+    res.status(200).json(res.locals)
 })
 
 
