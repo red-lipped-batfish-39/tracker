@@ -2,7 +2,7 @@ import React, { Component, Profiler } from "react";
 import { render } from "react-dom";
 import Login from "./login.jsx"
 import Signup from "./signup.jsx"
-
+import Logout from "./logout.jsx"
 class Profile extends Component {
  
   render() {
@@ -26,6 +26,10 @@ class Profile extends Component {
       username = {this.props.username}
       password = {this.props.password}
       email = {this.props.email}
+      />
+      <Logout
+      logout = {this.props.logout}
+      user = {this.props.user}
       />
       </div>
     );

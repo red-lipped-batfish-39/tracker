@@ -17,6 +17,7 @@ class App extends Component {
       endDate: '', 
       loginError: '', 
     }
+    this.logout = this.logout.bind(this);
     this.signup = this.signup.bind(this);
     this.login = this.login.bind(this);
     this.trackInput = this.trackInput.bind(this);
@@ -31,7 +32,7 @@ class App extends Component {
       }
     )
   };
-  
+
   signup () {
     fetch('/api/signup', {
       method: 'POST', 
@@ -122,7 +123,25 @@ class App extends Component {
         password: '',
       })
     })
-  }
+  };
+
+  logout() {
+    //delete local storage token localStorage.removeItem(token)
+      //reset state
+        //redirect to homepage /
+    localStorage.removeItem('token')
+
+    this.setState({
+      username: '',
+      password: '', 
+      email: '',
+      user: null, 
+      period: [], 
+      startDate: '', 
+      endDate: '', 
+      loginError: '', 
+    })
+  };
 
   componentDidUpdate() {
     console.log(this.state)
@@ -139,12 +158,15 @@ class App extends Component {
       trackInput = {this.trackInput}
       login = {this.login}
       signup = {this.signup}
+      logout = {this.logout}
       loginError = {this.state.loginError}
       username = {this.state.username}
       password = {this.state.password}
       email = {this.state.email}
+      user = {this.state.user}
       /> 
       <Main /> 
+      
       </div>
     );
   }
