@@ -12,12 +12,12 @@ router.post('/login', controller.postLogin, (req, res)=>{
 
 
 router.post('/signup', controller.postSignUp, (req, res)=>{
-    res.sendStatus(200)
+    res.status(200).json(res.locals)
 })
 
 
-router.post('/period', (req, res)=>{
-    
+router.post('/period', controller.postPeriod, (req, res)=>{
+    res.status(200).json(res.locals);
 })
 
 

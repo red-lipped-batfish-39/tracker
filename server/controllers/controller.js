@@ -66,6 +66,9 @@ Controller.postSignUp = (req, res, next)=>{
             console.log(err.stack);
             next(err);
           } else {
+            //add jwt and username to res.locals
+            res.locals.username = username;
+            res.locals.token = jwt.sign({'username': username, expiresIn:'4h'}, process.env.secret);
             //if signup successful, send confirmation 
             console.log('added a user');
             next();
@@ -73,18 +76,46 @@ Controller.postSignUp = (req, res, next)=>{
         })
     });
   
-  // console.log("hashPass: ", hashPass);
+
   });
    
   
 }
 
-// insert into users (username, email, password)
-// values ('mark', 'mark', 'mark')
-
-
+//user can add a period date
 Controller.postPeriod = (req, res, next)=>{
-    
+    //check the jwt to make sure that the user is still logged in
+      //how to de-encrypt????
+    //if the user is no longer logged in throw an error, pass err into next()
+    //if the user is still logged in, add the inputted period to the period database
+    //add periods to res.locals (so that the data can be sent back to the client)
+    const token = req.body.token;
+    jwt.verify(token, process.env.secret, (err, decoded) => {
+      if (err) {
+        console.log('Error: ', err);
+        res.send(err);
+      } else {
+        let username = req.body.username;
+        let startDate = req.body.startDate;
+        let endDate = req.body.endDate;
+        let sqlQuery = `insert into period_date (start_date, end_date, user_id) values ('${startDate}', '${endDate}', (Select user_id from users where username='${username}'))`;
+
+        db.query(sqlQuery, (err, response) => {
+          //if post does not work, send an error
+          if (err) {
+            console.log(err.stack);
+            next(err);
+          } else {
+            //add username and new jwt to res.locals
+            res.locals.username = username;
+            res.locals.token = jwt.sign({'username': username, expiresIn:'4h'}, process.env.secret);
+            //if post is successful, send confirmation 
+            console.log('posted a period');
+            next();
+          }
+        })
+      }
+    })
 }
 
 Controller.getPeriod = (req, res, next) => {
