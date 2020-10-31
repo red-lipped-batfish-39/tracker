@@ -9,16 +9,14 @@ class Login extends Component {
 
     return (
       //user name, pass, button
-      <div>
+      <div className="loginContainer">
 
-      <h1>This is Login</h1>
-
-
-      <label htmlFor="userID"> Input username</label>
-      <input type="text" id="userID" name="userID"  label/>
-      <label htmlFor="pwd"> password</label>
-      <input type="password" id="pwd" name="pwd" />
-      <button>Click me </button>
+        <h4>Sign in here</h4>
+        <label htmlFor="userID"> Username</label>
+        <input type="text" id="userID" name="userID"  label/>
+        <label htmlFor="pwd"> Password</label>
+        <input type="password" id="pwd" name="pwd" />
+        <button>Log In</button>
   
       </div>
     );
