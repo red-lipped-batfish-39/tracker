@@ -3,19 +3,48 @@
 
 body {
   font-family: Cabin;
+  color: $D;
 }
 
 .loginContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  // justify-content: center;
+  justify-content: space-between;
   background-color: $A;
+  margin: auto;
+  // need to do a media query -- this would be for large screen
+  width: 500px;
+  border-radius: 0.3em;
+  padding: 0.3em;
+}
+
+.loginContainer >* {
+  padding-top: 1%;
 }
 
 .loginContainer input {
-  padding: 0.5em;
+  padding: 0.8em;
+  width: 60%;
   border-radius: 0.3em;
   border: 1px solid $D;
+}
+
+// .loginContainer input :hover {
+//   padding: 0.5em;
+//   width: 60%;
+//   border-radius: 0.3em;
+//   border: 1px solid $D;
+// }
+
+.loginContainer button {
+  background-color: $E;
+  padding: 0.8em;
+  border-radius: 0.3em;
+  border: 1px solid $D;
+  width: 40%;
+  color: $D;
+  font-size: .9em;
+  font-weight: bold;
 }
 
