@@ -3,6 +3,7 @@ import { render } from "react-dom";
 // import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
 import Profile from "./component/profile.jsx";
 import Main from "./component/main.jsx";
+import './static/styles.scss';
 
 class App extends Component {
   constructor(props) {
