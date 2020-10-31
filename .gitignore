@@ -9,3 +9,6 @@ build
 
 #ignore package-lock
 package-lock.json
+
+#ignore db txt file
+db.txt
