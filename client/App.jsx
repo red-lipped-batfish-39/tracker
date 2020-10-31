@@ -103,7 +103,10 @@ class App extends Component {
     })
     .then( res => res.json())
     .then( data => {
-      
+      // console.log('this is login data', data)
+      if(data.err) {
+        throw new Error('fetch fail')
+      }
       if(data.error) {
         //send error based on user or pass
           //send login error message
@@ -155,12 +158,13 @@ class App extends Component {
       period: [], 
       startDate: '', 
       endDate: '', 
-      loginError: '', 
+      loginError: '',
+      task: 'login',
     })
   };
 
   componentDidUpdate() {
-    console.log(this.state)
+    // console.log(this.state)
   }
 
   render() {
