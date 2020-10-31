@@ -10,15 +10,17 @@ class App extends Component {
     this.state = {
       username: '',
       password: '', 
+      email: '',
       user: null, //starts with null, change state after user verified 
       period: [], //display to the user if data comes back
       startDate: '', 
       endDate: '', 
       loginError: '', 
     }
+    this.signup = this.signup.bind(this);
     this.login = this.login.bind(this);
     this.trackInput = this.trackInput.bind(this);
-  }
+  };
   trackInput (userInputType, event) {
     //store event target (event input)
       //set state for userInput
@@ -28,7 +30,50 @@ class App extends Component {
         [userInputType]: event.target.value
       }
     )
-  }
+  };
+  
+  signup () {
+    fetch('/api/signup', {
+      method: 'POST', 
+      headers: {
+        'Content-Type': 'application/json'
+      }, 
+      body: JSON.stringify({
+        username: this.state.username,
+        password: this.state.password,
+        email: this.state.email
+      })
+    })
+    .then( res => res.json())
+    .then( data => {
+      if(data.error) {
+        this.setState({
+          ...this.state,
+          loginError: data.error,
+          username: '',
+          password: '',
+          email: '',
+        })
+      } 
+      localStorage.setItem('token', data.token)
+      this.setState({
+        ...this.state,
+        user: data.username,
+        username: '',
+        password: '',
+        email: '', 
+      })
+      
+    }).catch( (err) => {
+      this.setState({
+        ...this.state,
+        loginError: 'signup failed',
+        username: '',
+        password: '',
+        email: '',
+      })
+    })
+  };
 
   login () {
     fetch('/api/login', {
@@ -93,9 +138,11 @@ class App extends Component {
       <Profile
       trackInput = {this.trackInput}
       login = {this.login}
+      signup = {this.signup}
       loginError = {this.state.loginError}
       username = {this.state.username}
       password = {this.state.password}
+      email = {this.state.email}
       /> 
       <Main /> 
       </div>

@@ -1,6 +1,7 @@
 import React, { Component, Profiler } from "react";
 import { render } from "react-dom";
 import Login from "./login.jsx"
+import Signup from "./signup.jsx"
 
 class Profile extends Component {
  
@@ -17,6 +18,14 @@ class Profile extends Component {
       loginError = {this.props.loginError}
       username = {this.props.username}
       password = {this.props.password}
+      />
+      <Signup 
+      trackInput = {this.props.trackInput}
+      signup = {this.props.signup}
+      loginError = {this.props.loginError}
+      username = {this.props.username}
+      password = {this.props.password}
+      email = {this.props.email}
       />
       </div>
     );
