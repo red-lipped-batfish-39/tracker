@@ -17,15 +17,15 @@ app.use(bodyParser.urlencoded({extended:true}));
 //going to build off of build folder file created by webpack
 app.use('/build', express.static(path.join(__dirname, '../build')));
 
-//all calls to website/api go to the router
-// app.use('/api', apiRouter);
+// all calls to website/api go to the router
+app.use('/api', apiRouter);
 
 //send index html to link to our react app
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/index.html'));
   });
 
-  
+
 
 //internal errors
 app.use((err, req, res, next) => {
