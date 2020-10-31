@@ -9,7 +9,7 @@ class Signup extends Component {
   render () {
     return (
       //user name, pass, button
-      <div>
+      <div className={"loginContainer"}>
 
       <h1>This is Signup</h1>
 
