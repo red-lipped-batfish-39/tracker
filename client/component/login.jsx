@@ -22,9 +22,11 @@ class Login extends Component {
 
       <label htmlFor="pwd"> password</label>
       <input value = {this.props.password} type="password" id="pwd" name="pwd" onChange = {(e) => {this.props.trackInput('password', e)}}/>
-      
+
       <button onClick = {this.props.login}>Click me </button>
-  
+      
+      <button onClick = {this.props.changeTask}>Switch to Signup </button>
+
       </div>
     );
   }

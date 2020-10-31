@@ -16,12 +16,22 @@ class App extends Component {
       startDate: '', 
       endDate: '', 
       loginError: '', 
+      task: 'login', //task for profile to determine which component to display
     }
+    this.changeTask = this.changeTask.bind(this);
     this.logout = this.logout.bind(this);
     this.signup = this.signup.bind(this);
     this.login = this.login.bind(this);
     this.trackInput = this.trackInput.bind(this);
   };
+
+  changeTask (){ //change task in login page to signup
+    this.setState({
+      ...this.state,
+      task: 'signup'
+    })
+  };
+
   trackInput (userInputType, event) {
     //store event target (event input)
       //set state for userInput
@@ -54,6 +64,7 @@ class App extends Component {
           username: '',
           password: '',
           email: '',
+          task: 'logout'
         })
       } 
       localStorage.setItem('token', data.token)
@@ -111,6 +122,7 @@ class App extends Component {
         user: data.username,
         username: '',
         password: '',
+        task: 'logout',
       })
       
       //response: JWT, username body or ERR?
@@ -155,6 +167,7 @@ class App extends Component {
       //render profile & name 
       <div>
       <Profile
+      changeTask = {this.changeTask}
       trackInput = {this.trackInput}
       login = {this.login}
       signup = {this.signup}
@@ -164,6 +177,7 @@ class App extends Component {
       password = {this.state.password}
       email = {this.state.email}
       user = {this.state.user}
+      task = {this.state.task}
       /> 
       <Main /> 
       
