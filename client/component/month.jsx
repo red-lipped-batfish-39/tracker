@@ -9,7 +9,7 @@ class Month extends Component {
   render() {
     const daysStorage = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat']
     const monthsStorage = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    let today = new Date(2020, 9, 21); //returns Day Mon DD YYYY HH:MM:SS GMT-0800 
+    let today = new Date(); //returns Day Mon DD YYYY HH:MM:SS GMT-0800 
     let day = today.getDay(); //return 0 - 6 represent Sunday - Saturday, typeof is a number
     let year = today.getFullYear(); //gets year as a number 
     let month = today.getMonth(); //gets month as a number 0 -11
@@ -18,7 +18,7 @@ class Month extends Component {
     let firstDayOfMonth = new Date(year, month, 1);
     
     
-    let lastDayOfMonth = new Date(year, month + 1, 0);
+    
     
 
     //create array of dayLabel components for each day of week
