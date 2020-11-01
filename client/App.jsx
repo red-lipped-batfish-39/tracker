@@ -271,6 +271,7 @@ class App extends Component {
       task = {this.state.task}
       /> 
       <Main 
+      user = {this.state.user}
       trackInput = {this.trackInput}
       newPeriod = {this.newPeriod}
       startDate = {this.state.startDate}

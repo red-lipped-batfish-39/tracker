@@ -5,6 +5,10 @@ import { render } from "react-dom";
 class Main extends Component {
  
   render() {
+    console.log('this.props.user is ', this.props.user)
+    if (!this.props.user) {
+      return <></>
+    }
 
     return (
 

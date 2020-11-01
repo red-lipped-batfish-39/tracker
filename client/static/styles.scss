@@ -15,7 +15,7 @@ body {
   margin: auto;
   margin-bottom: 0.1em;
   // need to do a media query -- this would be for large screen
-  width: minmax(400px, 70%);
+  width: 500px;
   border-radius: 0.3em;
   padding: 0.3em;
 }
@@ -71,7 +71,7 @@ body {
   margin: auto;
   margin-bottom: 0.1em;
   // need to do a media query -- this would be for large screen
-  width: minmax(400px, 70%);
+  width: 500px;
   border-radius: 0.3em;
   padding: 0.3em;
   color: $I;
@@ -96,4 +96,21 @@ body {
   border-radius: 0.3em;
   border: 1px solid $I;
   font-size: 1.2em;
+}
+
+.logout {
+  background-color: $F;
+  color: $I;
+}
+
+.logout .primaryButton {
+  background-color: $J;
+  padding: 0.8em;
+  border-radius: 0.3em;
+  border: 1px solid $D;
+  width: 40%;
+  color: $I;
+  font-size: .9em;
+  font-weight: bold;
+  color: $I;
 }
