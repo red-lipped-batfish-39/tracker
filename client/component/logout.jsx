@@ -9,8 +9,8 @@ class Logout extends Component {
   render() {
     return(
       <div className={"loginContainer"}>
-      <h4>Welcome {this.props.user}! </h4>
-      <button onClick = {this.props.logout}>Logout </button>
+        <h3>Welcome {this.props.user}! </h3>
+        <button className="primaryButton" onClick = {this.props.logout}>Log out </button><br></br>
       </div>
     )
   }
