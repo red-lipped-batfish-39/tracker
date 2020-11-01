@@ -14,18 +14,20 @@ class Login extends Component {
       //user name, pass, button
       <div className="loginContainer">
 
-      <h1>This is Login</h1>
-      <p>{this.props.loginError}</p>
+        <h1>Log in</h1>
+        
 
-      <label htmlFor="userID"> Input username</label>
-      <input value = {this.props.username} type="text" id="userID" name="userID"  onChange = {(e) => {this.props.trackInput('username', e)}}/>
+        <label htmlFor="userID"> Username</label>
+        <input value = {this.props.username} type="text" id="userID" name="userID"  onChange = {(e) => {this.props.trackInput('username', e)}}/>
 
-      <label htmlFor="pwd"> password</label>
-      <input value = {this.props.password} type="password" id="pwd" name="pwd" onChange = {(e) => {this.props.trackInput('password', e)}}/>
+        <label htmlFor="pwd"> Password</label>
+        <input value = {this.props.password} type="password" id="pwd" name="pwd" onChange = {(e) => {this.props.trackInput('password', e)}}/><br></br>
 
-      <button onClick = {this.props.login}>Click me </button>
-      
-      <button onClick = {this.props.changeTask}>Switch to Signup </button>
+        <button className="primaryButton" onClick = {this.props.login}>Log in </button><br></br>
+        
+        <button className="secondaryButton" onClick = {this.props.changeTask}>Go to sign up page</button><br></br>
+
+        <p>{this.props.loginError}</p>
 
       </div>
     );
