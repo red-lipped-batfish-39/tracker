@@ -120,12 +120,12 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  // align-items: stretch;
+  align-items: stretch;
   width: 500px;
   margin: auto;
   
-  border-radius: 0.3em;
-  padding: 0.3em;
+  // border-radius: 0.3em;
+  // padding: 0.3em;
   color: $I;
   // border: 1px solid $I;
   padding: 0;
@@ -135,9 +135,11 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  // align-items: stretch;
+  align-items: stretch;
   width: 500px;
-  margin: auto;
+  // margin: auto;
+  margin: 0;
+  height: 5%;
   
   border-radius: 0.3em;
   // padding: 0.3em;
@@ -148,7 +150,7 @@ body {
 }
 
 .dayLabel {
-  background-color: $F;
+  background-color: $H;
   width: 90%;
   text-align: center;
   // border-radius: 0.3em;
@@ -158,7 +160,7 @@ body {
 }
 
 .dayBox {
-  background-color: $H;
+  background-color: white;
   width: 100%;
   height: 100%;
   color: $I;
@@ -169,8 +171,9 @@ body {
   border: 1px solid $I;
 }
 
+
 .dayBox :hover {
-  background-color: $F;
+  background-color: $H;
 
 }
 
