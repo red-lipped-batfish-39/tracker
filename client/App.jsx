@@ -99,6 +99,16 @@ class App extends Component {
   };
 
   login () {
+    //check to see if inputs are there
+    if (!this.state.username || !this.state.password){
+      this.setState({
+        ...this.state,
+        loginError: 'Missing information',
+        username: '',
+        password: '',
+      })
+      return;
+    }
     fetch('/api/login', {
       method: 'POST', 
       headers: {
