@@ -32,10 +32,11 @@ class App extends Component {
 
 
 
-  changeTask (){ //change task in login page to signup
+  changeTask (){ //change task in login page to signup or vice versa
+    let task = (this.state.task === 'signup' ? 'login' : 'signup');
     this.setState({
       ...this.state,
-      task: 'signup'
+      task,
     })
   };
 
@@ -53,6 +54,17 @@ class App extends Component {
 
 
   signup () {
+    //check to see if inputs are there before fetch request
+    if (!this.state.username || !this.state.password || !this.state.email){
+      this.setState({
+        ...this.state,
+        loginError: 'Missing information in sign up',
+        task: 'login',
+        username: '',
+        password: '',
+      })
+      return;
+    }
     fetch('/api/signup', {
       method: 'POST', 
       headers: {
