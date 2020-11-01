@@ -11,7 +11,7 @@ class DayLabel extends Component {
   render() {
 
     return (
-      <div className="dayOfWeek">
+      <div className="dayLabel">
         <h3>{this.props.dayOfWeek}</h3>
       </div>
       

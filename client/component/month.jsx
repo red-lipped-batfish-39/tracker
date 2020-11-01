@@ -14,7 +14,7 @@ class Month extends Component {
     let year = today.getFullYear(); //gets year as a number 
     let month = today.getMonth(); //gets month as a number 0 -11
     let date = today.getDate(); //gets date as a number 1-31
-    let dateString = today.toDateString(); //gets today's date in format "Day Mon DD YYYY"
+    let dateString = today.toDateString(); //gets today's date in format "Day MMM DD YYYY"
     let firstDayOfMonth = new Date(year, month, 1);
     
     
@@ -43,14 +43,16 @@ class Month extends Component {
     //create 5 weeks -- each week will contain the start date, a date object representing the sunday at the start of that week
     const weeks = [];
     for (let i = 0; i < 5; i++){
-      weeks.push(<Week key={`dd:${firstSunday.getDate()}mm:${firstSunday.getMonth()}`} firstSundayDate = {firstSunday.getDate()} month = {firstSunday.getMonth()} year={firstSunday.getFullYear()}/>);
+      weeks.push(<Week key={`dd:${firstSunday.getDate()}mm:${firstSunday.getMonth()}`} firstSundayDate = {firstSunday.getDate()} month = {firstSunday.getMonth()} week={i} year={firstSunday.getFullYear()}/>);
       firstSunday.setDate(firstSunday.getDate() + 7);
     }
 
     return (
       <>
-        <h1>This is a month</h1>
-        <h1>Calendar</h1>
+        <div className ="calendarHeading">
+          <h2>Your period calendar</h2>
+          <h3>{monthsStorage[month]}</h3>
+        </div>
         <div className="calendar">
           <div className="calendarRow daysRow">
             {dayLabels}
