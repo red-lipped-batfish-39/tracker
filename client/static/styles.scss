@@ -15,7 +15,7 @@ body {
   margin: auto;
   margin-bottom: 0.1em;
   // need to do a media query -- this would be for large screen
-  width: 500px;
+  width: minmax(400px, 70%);
   border-radius: 0.3em;
   padding: 0.3em;
 }
@@ -38,7 +38,7 @@ body {
 //   border: 1px solid $D;
 // }
 
-.primaryButton {
+.loginContainer .primaryButton {
   background-color: $E;
   padding: 0.8em;
   border-radius: 0.3em;
@@ -49,7 +49,7 @@ body {
   font-weight: bold;
 }
 
-.secondaryButton {
+.loginContainer .secondaryButton {
   background-color: white;
   padding: 0.8em;
   border-radius: 0.3em;
@@ -60,3 +60,40 @@ body {
 
 }
 
+
+
+.periodInputContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: $H;
+  margin: auto;
+  margin-bottom: 0.1em;
+  // need to do a media query -- this would be for large screen
+  width: minmax(400px, 70%);
+  border-radius: 0.3em;
+  padding: 0.3em;
+  color: $I;
+
+}
+
+.periodInputContainer .primaryButton {
+  background-color: $J;
+  padding: 0.8em;
+  border-radius: 0.3em;
+  border: 1px solid $D;
+  width: 40%;
+  color: $I;
+  font-size: .9em;
+  font-weight: bold;
+  color: $I;
+}
+
+.periodInputContainer input {
+  padding: 0.8em;
+  width: 60%;
+  border-radius: 0.3em;
+  border: 1px solid $I;
+  font-size: 1.2em;
+}
