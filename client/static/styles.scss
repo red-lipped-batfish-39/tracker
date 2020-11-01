@@ -13,6 +13,7 @@ body {
   justify-content: space-between;
   background-color: $A;
   margin: auto;
+  margin-bottom: 0.1em;
   // need to do a media query -- this would be for large screen
   width: 500px;
   border-radius: 0.3em;
@@ -56,6 +57,6 @@ body {
   width: 40%;
   color: $D;
   font-size: .9em;
-  font-weight: bold;
+
 }
 
