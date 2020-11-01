@@ -1,17 +1,18 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
+import Month from "./month.jsx"
 
 
 class Main extends Component {
  
   render() {
-    console.log('this.props.user is ', this.props.user)
+    //don't display component if user is not defined
     if (!this.props.user) {
-      return <></>
+      return <Month />
     }
 
     return (
-
+      <>
       <div class="periodInputContainer">
         <h1>Add new period</h1>
         <label htmlFor="start"> Start Date</label>
@@ -25,6 +26,8 @@ class Main extends Component {
         /><br></br>
         <button className ="primaryButton" onClick = {this.props.newPeriod}>Submit these dates</button><br></br>
       </div>
+      <Month />
+      </>
     );
   }
 }
