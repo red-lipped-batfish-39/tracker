@@ -5,6 +5,7 @@ require('dotenv').config();
 const saltRounds = 10;
 const Controller = {};
 
+//Login an existing user
 Controller.postLogin = (req, res, next)=>{
 
   //grab username and password from the request body
@@ -13,8 +14,10 @@ Controller.postLogin = (req, res, next)=>{
 
   //create sql query for where username is equal to header username
   let sqlQuery = "select * from users where username=\'"+username+"\'";
+  //query the database
   db.query(sqlQuery, (err, response) => {
       if (err) {
+        //if request is unsuccessful, throw an error
         console.log(err.stack);
         next(err);
       } else {
@@ -46,6 +49,7 @@ Controller.postLogin = (req, res, next)=>{
     })
 }
 
+//sign up a new user
 Controller.postSignUp = (req, res, next)=>{
   //initialize variables based on req data
   let username = req.body.username;
@@ -129,6 +133,7 @@ Controller.postPeriod = (req, res, next)=>{
 Controller.getAllPeriods = (req, res, next) => {
   //initialize a token variable from the token on req.body
   const token = req.body.token;
+
   //verify the token
   jwt.verify(token, process.env.secret, (err, decoded)=>{
     if(err){
