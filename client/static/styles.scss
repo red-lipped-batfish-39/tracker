@@ -110,12 +110,12 @@ h1, h2 {
     padding: 0.8em;
     border-radius: 0.3em;
     border: 1px solid $J;
-    
+    // font-weight: bold;
     color: $J;
     font-size: .9em;
     width: 40%;
     margin: auto;
-
+    white-space: nowrap;
   }
   .secondaryButton {
     background-color: $J;
