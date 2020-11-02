@@ -3,8 +3,27 @@ import { render } from "react-dom";
 
 
 class Day extends Component {
+  // constructor(props) {
+  //   super(props)
+  //   this.state= {
+  //     storedStartDate: '',
+  //   }
+  // }
+
+  // componentDidMount(){
+  //   /**if the day is associated with a stored period in the db, 
+  //    * we may need to access it later to update or delete that period
+  //    * we wait until component did mount to add the stored state to this component's state
+  //    * that way the speed of rendering will not be affected by the setState function
+  //    * assuming the storedStartDate only needs to be stored once (???)
+  //   */
+
+  // }
   
   render() {
+    let className = '';
+    let onClick = this.props.setPeriodDates
+
     //using the year month and date passed down, make a date object (today)
     const today = new Date(this.props.year, this.props.month, this.props.date);
 
@@ -14,26 +33,38 @@ class Day extends Component {
     //if the dateString is in the period List OR is the current start or end date -- it should be highlighted. 
     //we will accomplish that with a different className
     //this checks to see if this date is covered by the start and end date in state
-    let className = '';
+    
     if (dateString === this.props.startDate || dateString === this.props.endDate) {
       className = 'highlight'
     } else if (dateString > this.props.startDate && dateString < this.props.endDate) {
       className = 'highlight'
     }
 
-    //this checks to see if the date is in the array of period dates
+    /**this checks to see if the date is in the array of period dates
+     * if so it gets a 'storedHighlight' class
+     * also if so, the eventHandler has to change
+     * if the user clicks on a stored period, 
+     * they should get a prompt to update the period or delete the period
+    */
     /**ISSUE NOT RESOLVED
      * this is an O(n) time complexity for every 
      * day! That means it's running O(n) operations for 
-     * each day of the month for each stored 
-     * date in the database.
+     * each day of the month where n is the number of stored 
+     * periods in the database.
      * Refactor to first select the year and month and only look at the stored data for that year and that month??
      * Move to a higher level component so it isn't repeated for each day?
     */
+    let storedStart = '';
     if (this.props.period.some(object => {
-      return object.startDate === dateString || object.endDate === dateString || (object.startDate < dateString && object.endDate > dateString)
+      if (object.startDate <= dateString && object.endDate >= dateString) {
+        storedStart = object.startDate;
+        return true;
+      }
     })) {
       className = 'storedHighlight';
+      onClick = () => {
+        this.props.stageForUpdateOrDelete(storedStart);
+      }
     }
 
     return (
@@ -45,7 +76,7 @@ class Day extends Component {
           id={dateString}
           //add class for bg color
           className = {className}
-          onClick = {this.props.setPeriodDates}
+          onClick = {onClick}
         >
           {this.props.date}
         </p>
