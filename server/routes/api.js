@@ -21,8 +21,8 @@ router.post('/period', controller.postPeriod, (req, res)=>{
 })
 
 
-router.get('/period', (req, res)=>{
-    
+router.post('/getallperiods', controller.getAllPeriods, (req, res)=>{
+    res.status(200).json(res.locals);
 })
 
 

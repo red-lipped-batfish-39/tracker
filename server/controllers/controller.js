@@ -82,6 +82,9 @@ Controller.postSignUp = (req, res, next)=>{
   
 }
 
+
+
+
 //user can add a period date
 Controller.postPeriod = (req, res, next)=>{
     //check the jwt to make sure that the user is still logged in
@@ -95,7 +98,7 @@ Controller.postPeriod = (req, res, next)=>{
         console.log('Error: ', err);
         res.send(err);
       } else {
-        let username = req.body.username;
+        let username = decoded.username;
         let startDate = req.body.startDate;
         let endDate = req.body.endDate;
         let sqlQuery = `insert into period_date (start_date, end_date, user_id) values ('${startDate}', '${endDate}', (Select user_id from users where username='${username}'))`;
@@ -109,7 +112,7 @@ Controller.postPeriod = (req, res, next)=>{
             //add username and new jwt to res.locals
             res.locals.username = username;
             res.locals.token = jwt.sign({'username': username, expiresIn:'4h'}, process.env.secret);
-            //if post is successful, send confirmation 
+            //if post is successful, console.log confirmation 
             console.log('posted a period');
             next();
           }
@@ -118,9 +121,41 @@ Controller.postPeriod = (req, res, next)=>{
     })
 }
 
-Controller.getPeriod = (req, res, next) => {
+Controller.getAllPeriods = (req, res, next) => {
+  //jwt verify
+  const token = req.body.token;
+  jwt.verify(token, process.env.secret, (err, decoded)=>{
+    if(err){
+      console.log("Error:", err);
+      res.send(err);
+    }else{
+      let username = decoded.username;
+      let sqlQuery = `select start_date, end_date from period_date where user_id = (select user_id from users where username = '${username}')`;
+      db.query(sqlQuery, (err, response)=>{
+        //if select doesnt work send error
+        if(err){
+          console.log(err.stack);
+          next(err);
+        }else{
+          console.log("working")
+          res.locals.token = jwt.sign({'username': username, expiresIn:'4h'}, process.env.secret);
+          res.locals.periods = response.rows
+          next();
+        }
+      })
+    }
+
+  })
   
+
 }
+
+//helper function that queries the database for all periods of given user and returns array  of all periods  (build the retturnn object in the parent function)
+Controller.makePeriodArray = (req,  res, next) => {
+
+}
+
+
 
 module.exports = Controller;
 
