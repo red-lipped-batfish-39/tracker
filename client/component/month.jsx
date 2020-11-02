@@ -41,11 +41,36 @@ class Month extends Component {
           period = {this.props.period}
           startDate = {this.props.startDate}
           endDate = {this.props.endDate}
+          stageForUpdateOrDelete = {this.props.stageForUpdateOrDelete}
         />
       );
       firstSunday.setDate(firstSunday.getDate() + 7);
     }
 
+    //if a period is staged for update or delete, we should display delete period button, otherwise, disaply add period button
+    const buttonDisplay = [];
+    if (this.props.storedStart !== '') {
+      buttonDisplay.push(
+        <button 
+          key = "deletePeriod"
+          className ="secondaryButton" 
+          onClick = {this.props.deletePeriod}
+        >
+          Delete this period
+        </button>
+      )
+    } else {
+      buttonDisplay.push(
+        <button
+          key = "addPeriod" 
+          className ="secondaryButton" 
+          onClick = {this.props.newPeriod}
+        >
+          Save these period dates
+        </button>
+      );
+    };
+    
     return (
       <>
         <div className ="calendarHeading">
@@ -61,12 +86,8 @@ class Month extends Component {
         <br></br>
         
         <div className = "calendarHeading">
-          <button 
-            className ="secondaryButton" 
-            onClick = {this.props.newPeriod}
-          >
-            Submit new period dates
-          </button><br></br>
+          {buttonDisplay}
+          <br></br>
           <div className="monthToggle">
             <button onClick = {this.props.subtractMonth} className="primaryButton">Previous Month</button>
             <button onClick = {this.props.addMonth} className="primaryButton">Next Month</button>
