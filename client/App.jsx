@@ -9,16 +9,21 @@ class App extends Component {
   constructor(props) {
     super(props); 
     this.state = {
+      //these inputs update when user is signing in or signing up
+      //they should update on change
       username: '',
       password: '', 
       email: '',
-      user: null, //starts with null, change state after user verified 
-      period: [], //display to the user if data comes back
-      startDate: '', 
-      endDate: '', 
+      //these are used to handle login/logout tasks 
       loginError: '', 
-      task: 'login', //task for profile to determine which component to display
-      startDate: '',
+      task: 'login', 
+      //task for profile to determine which component to display
+      //starts with null, change state after user verified by server response
+      user: null, 
+      //display period data to the user if data comes back from server. This data will contain {startDate: 'YYYY-MM-DD', endDate: 'YYYY-MM-DD'}
+      period: [{startDate: '2020-10-22', endDate: '2020-10-28'}], 
+      //startDate and endDate can update from the calendar interface or the input date interface
+      startDate: '', 
       endDate: '', 
       //month, year, and date to display on the calendar (sets on component did mount, updates if user selects prev month)
       currMonthDisplay: '', 
@@ -38,6 +43,9 @@ class App extends Component {
   };
 
   componentDidMount () {
+    //after mounting app the first time -- get today's date, and add date information to state.
+    //Note: date objects cannot be passed as props, so currMonthDisplay & currYearDisplay & todayDate are passed instead
+    //Main cannot be displayed until after this step occurs becaue the calendar depends on the current date
     let today = new Date();
     let currMonthDisplay = today.getMonth();
     let currYearDisplay = today.getFullYear();
@@ -230,15 +238,19 @@ class App extends Component {
     })
   };
 
-  newPeriod () { //inside main after LOGIN success
-
+  newPeriod () { 
+    // this function runs when submit new period is selected inside after LOGIN success
+    
+    //get the token from local storage
     let token = localStorage.getItem('token')
+
+    //because we will allow users to submit a new period without an end date -- we check for edge cases where there is no endDate in state
     let replacedEndDate; 
     if(this.state.endDate === '') {
       replacedEndDate = this.state.startDate //if no declared end date, set it to startDate
     } else {
       replacedEndDate = this.state.endDate //set temp variable to endDate, send declared variable in json
-    }
+    };
     fetch('/api/period', {
       method: 'POST',
       headers: {
@@ -255,23 +267,24 @@ class App extends Component {
     })
     .then( res => res.json())
     .then( data => {
+      console.log('newPeriod received data', data)
       //check if data has periods property
         //if no periods, send the user "error: dates not saved", no end or start date
           //reset start & end date
       if(!data.period) {
         throw new Error('Error: dates not saved')
-      }
-      //if there is periods prop
+      } else {
+        //if there is periods prop
         //we set new state for period
-          //replace start & end date in state
-      this.setState({
-        ...this.state,
-        period: data.periods,
-        startDate: '',
-        endDate: '',
-      })
-    })
-    .catch( (err) => {
+        //replace start & end date in state
+        this.setState({
+          ...this.state,
+          period: data.periods,
+          startDate: '',
+          endDate: '',
+        });
+      };
+    }).catch( (err) => {
       this.setState({
         ...this.state,
         startDate: '',
@@ -340,9 +353,11 @@ class App extends Component {
 
   render() {
     console.log('running render on App component, show main is', this.state.showMain, 'state is', this.state)
+    //main should not display until startDate is set -- if statment determines if showMain is true or not
     const main = [];
     if (this.state.showMain === true) {
       main.push(<Main 
+      key = "maincontainer"
       user = {this.state.user}
       setPeriodDates = {this.setPeriodDates}
       newPeriod = {this.newPeriod}
@@ -358,22 +373,22 @@ class App extends Component {
     } 
 
     return (
-      //render profile & name 
+      //render profile (which renders login , signup, or logout depending on this.state.task) & main container 
       <div>
-      <Profile
-      changeTask = {this.changeTask}
-      trackInput = {this.trackInput}
-      login = {this.login}
-      signup = {this.signup}
-      logout = {this.logout}
-      loginError = {this.state.loginError}
-      username = {this.state.username}
-      password = {this.state.password}
-      email = {this.state.email}
-      user = {this.state.user}
-      task = {this.state.task}
-      /> 
-      {main}
+        <Profile
+          changeTask = {this.changeTask}
+          trackInput = {this.trackInput}
+          login = {this.login}
+          signup = {this.signup}
+          logout = {this.logout}
+          loginError = {this.state.loginError}
+          username = {this.state.username}
+          password = {this.state.password}
+          email = {this.state.email}
+          user = {this.state.user}
+          task = {this.state.task}
+        /> 
+        {main}
       
       </div>
     );
