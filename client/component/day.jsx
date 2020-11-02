@@ -3,22 +3,7 @@ import { render } from "react-dom";
 
 
 class Day extends Component {
-  // constructor(props) {
-  //   super(props)
-  //   this.state= {
-  //     storedStartDate: '',
-  //   }
-  // }
 
-  // componentDidMount(){
-  //   /**if the day is associated with a stored period in the db, 
-  //    * we may need to access it later to update or delete that period
-  //    * we wait until component did mount to add the stored state to this component's state
-  //    * that way the speed of rendering will not be affected by the setState function
-  //    * assuming the storedStartDate only needs to be stored once (???)
-  //   */
-
-  // }
   
   render() {
     let className = '';
