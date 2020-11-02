@@ -63,7 +63,8 @@ class App extends Component {
     })
   }
 
-  changeTask (){ //change task in login page to signup or vice versa
+  changeTask (){ 
+    //change task in login page to signup or vice versa
     let task = (this.state.task === 'signup' ? 'login' : 'signup');
     this.setState({
       ...this.state,
@@ -148,7 +149,11 @@ class App extends Component {
 
 
   signup () {
-    //check to see if inputs are there before fetch request
+    /**check to see if inputs are there before fetch request
+     * If not, redirect user to log in by changing the task
+     * reset any inputs
+     * set loginError to missing info
+    */
     if (!this.state.username || !this.state.password || !this.state.email){
       this.setState({
         ...this.state,
@@ -159,6 +164,11 @@ class App extends Component {
       })
       return;
     }
+    /**if inputs are there
+     * send post request to server with username, pw, email
+     * server will send back jwt & username -- which we can add to user because it is verified
+     * server errors should return an error object so that we go to the catch
+     */
     fetch('/api/signup', {
       method: 'POST', 
       headers: {
@@ -205,7 +215,7 @@ class App extends Component {
   };
 
   login () {
-    //check to see if inputs are there
+    //check to see if inputs are there before creating fetch request
     if (!this.state.username || !this.state.password){
       this.setState({
         ...this.state,
@@ -215,6 +225,15 @@ class App extends Component {
       })
       return;
     }
+
+    /**
+     * after inputs are validated, send post request to /api/login route
+     * if user is validated, we should receive token to add to local storage
+     * and username to add to user property
+     * reset all input fields
+     * if server sends back an error object --> throw error
+     * if server sends back and error property on the response object --> throw error
+     */
     fetch('/api/login', {
       method: 'POST', 
       headers: {
