@@ -12,22 +12,23 @@ class Login extends Component {
     
     return (
       //user name, pass, button
-      <div className="loginContainer">
+      <>
+        <h2>Log in</h2>
+        <div className="loginContainer">
+          <label htmlFor="userID"> Username</label>
+          <input value = {this.props.username} type="text" id="userID" name="userID"  onChange = {(e) => {this.props.trackInput('username', e)}}/>
 
-      <h1>This is Login</h1>
-      <p>{this.props.loginError}</p>
+          <label htmlFor="pwd"> Password</label>
+          <input value = {this.props.password} type="password" id="pwd" name="pwd" onChange = {(e) => {this.props.trackInput('password', e)}}/><br></br>
 
-      <label htmlFor="userID"> Input username</label>
-      <input value = {this.props.username} type="text" id="userID" name="userID"  onChange = {(e) => {this.props.trackInput('username', e)}}/>
+          <button className="primaryButton" onClick = {this.props.login}>Log in </button><br></br>
+          
+          <button className="secondaryButton" onClick = {this.props.changeTask}>Go to sign up page</button><br></br>
 
-      <label htmlFor="pwd"> password</label>
-      <input value = {this.props.password} type="password" id="pwd" name="pwd" onChange = {(e) => {this.props.trackInput('password', e)}}/>
+          <p>{this.props.loginError}</p>
 
-      <button onClick = {this.props.login}>Click me </button>
-      
-      <button onClick = {this.props.changeTask}>Switch to Signup </button>
-
-      </div>
+        </div>
+      </>
     );
   }
 }
