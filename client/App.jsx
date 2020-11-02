@@ -20,7 +20,11 @@ class App extends Component {
       task: 'login', //task for profile to determine which component to display
       startDate: '',
       endDate: '', 
-
+      //month, year, and date to display on the calendar (sets on component did mount, updates if user selects prev month)
+      currMonthDisplay: '', 
+      currYearDisplay: '',
+      todayDate: '',
+      showMain: false,
     }
     this.newPeriod = this.newPeriod.bind(this);
     this.changeTask = this.changeTask.bind(this);
@@ -28,9 +32,24 @@ class App extends Component {
     this.signup = this.signup.bind(this);
     this.login = this.login.bind(this);
     this.trackInput = this.trackInput.bind(this);
+    this.addMonth = this.addMonth.bind(this);
+    this.subtractMonth = this.subtractMonth.bind(this);
+    this.setPeriodDates = this.setPeriodDates.bind(this);
   };
 
-
+  componentDidMount () {
+    let today = new Date();
+    let currMonthDisplay = today.getMonth();
+    let currYearDisplay = today.getFullYear();
+    let todayDate = today.getDate();
+    this.setState({
+      ...this.state,
+      currMonthDisplay,
+      currYearDisplay,
+      todayDate,
+      showMain: true,
+    })
+  }
 
   changeTask (){ //change task in login page to signup or vice versa
     let task = (this.state.task === 'signup' ? 'login' : 'signup');
@@ -40,10 +59,47 @@ class App extends Component {
     })
   };
 
+  setPeriodDates (event) {
+    //Goal -- change the start or end date of the period based on calendar click
+    //special cases 
+
+    // if startDate already exists, change endDate, not startDate
+      // unless endDate already exists, in which case endDate should be cleared and startDate should be reset
+
+    //if startDate already exists but the new date is before that start date, change the startDate
+
+    let newDate = event.target.id;
+    console.log('running setPeriodDates, new date is', newDate, 'event target is', event.target)
+    if (
+        this.state.startDate !== '' && 
+        newDate < this.state.startDate
+      ) {
+      this.setState({
+        ...this.state,
+        startDate: newDate,
+        endDate: ''
+      })
+    } else if (
+        this.state.startDate !== '' && 
+        this.state.endDate === ''
+      ) {
+      this.setState({
+        ...this.state,
+        endDate: newDate
+      })
+    } else {
+      this.setState({
+        ...this.state,
+        startDate: newDate,
+        endDate: ''
+      })
+    }
+     
+  }
+
   trackInput (userInputType, event) {
     //store event target (event input)
-      //set state for userInput
-      // console.log('this is trackinput',userInputType, event.target.value)
+    //set state for userInput
     this.setState(
       {
         ...this.state, 
@@ -246,13 +302,60 @@ class App extends Component {
     })
   };
 
-  componentDidUpdate() {
-    // console.log(this.state)
+  addMonth(){
+    //new month is (currMonthDisplay + 1) % 12 
+    /**example 1: 
+     * current month is 10 (November) --> 
+     * add 1 --> month is 11 (December) --> 
+     * 11 mod 12 is 11 --> 
+     * stays same
+     * example 2
+     * current month is 11 --> add 1 --> 12 % 12 --> 0 --> January 
+     * if final month is january -- add 1 to year
+    */
+    let newMonth = (this.state.currMonthDisplay + 1) % 12;
+    let newYear = (newMonth === 0 ? this.state.currYearDisplay + 1 : this.state.currYearDisplay);
+    this.setState({
+      currMonthDisplay: newMonth, 
+      currYearDisplay: newYear,
+    }) 
+  }
+
+  subtractMonth(){
+
+    //new month is currMonth - 1 unless month is January (0)
+    let newMonth;
+    let newYear;
+    if (this.state.currMonthDisplay === 0) {
+      newMonth = 11;
+      newYear = this.state.currYearDisplay - 1;
+    } else {
+      newMonth = (this.state.currMonthDisplay - 1);
+    }
+    this.setState({
+      currMonthDisplay: newMonth, 
+      currYearDisplay: newYear || this.state.currYearDisplay,
+    }) 
   }
 
   render() {
-    // localStorage.setItem('token', 'aaaaa.ccccc.bbbbb')
-      //testing local storage to show up in console
+    console.log('running render on App component, show main is', this.state.showMain, 'state is', this.state)
+    const main = [];
+    if (this.state.showMain === true) {
+      main.push(<Main 
+      user = {this.state.user}
+      setPeriodDates = {this.setPeriodDates}
+      newPeriod = {this.newPeriod}
+      addMonth = {this.addMonth}
+      subtractMonth = {this.subtractMonth}
+      startDate = {this.state.startDate}
+      endDate = {this.state.endDate}
+      currMonthDisplay = {this.state.currMonthDisplay} 
+      currYearDisplay = {this.state.currYearDisplay}
+      todayDate = {this.state.todayDate}
+      period = {this.state.period}
+      />) 
+    } 
 
     return (
       //render profile & name 
@@ -270,13 +373,7 @@ class App extends Component {
       user = {this.state.user}
       task = {this.state.task}
       /> 
-      <Main 
-      user = {this.state.user}
-      trackInput = {this.trackInput}
-      newPeriod = {this.newPeriod}
-      startDate = {this.state.startDate}
-      endDate = {this.state.endDate}
-      /> 
+      {main}
       
       </div>
     );
