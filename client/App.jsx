@@ -33,6 +33,7 @@ class App extends Component {
       //storedStart is used for staging periods for update/delete
       storedStart: '',
     }
+    this.getUserPeriods = this.getUserPeriods.bind(this); 
     this.newPeriod = this.newPeriod.bind(this);
     this.changeTask = this.changeTask.bind(this);
     this.logout = this.logout.bind(this);
@@ -60,6 +61,37 @@ class App extends Component {
       currYearDisplay,
       todayDate,
       showMain: true,
+    })
+  }
+  
+    getUserPeriods () {
+    //fetch request to display current user data
+    fetch('/api/getallperiods', {
+      mode: 'POST',
+      header: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        token: localStorage.getItem('token')
+      }),
+    })
+
+    .then(res => res.json())
+    .then( data => {
+      if(data.token) {
+        localStorage.setItem('token', data.token)
+      }
+      this.setState({
+        ...this.state,
+        period: data.periods
+      })
+    })
+    .catch( err => {
+      localStorage.removeItem('token');
+      this.setState({
+        ...this.state,
+        task: 'login',
+        user: null, 
+        loginError: 'authentication failed, try logging in again',
+      })
     })
   }
 
@@ -141,10 +173,32 @@ class App extends Component {
      * 
     */
     //reset storedStart to ''
-    this.setState({
-      ...this.state,
-      storedStart: '',
+    fetch('/api/period', {
+      method: 'DELETE',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        token: localStorage.getItem('token'),
+        startDate: this.state.storedStart,
+      })
     })
+    .then( res => res.json())
+    .then( data => {
+      if(data.token) {
+        localStorage.setItem('token', data.token)
+      }
+      this.setState({
+        ...this.state,
+        period: data.periods,
+        storedStart: '',
+      })
+    }).catch( err => {
+      this.setState({ 
+        ...this.state,
+        storedStart: '',
+      })
+      console.error(err) //sends err message from server
+    })
+
   };
 
 
@@ -202,7 +256,9 @@ class App extends Component {
         task: 'logout',
       })
       
-    }).catch( (err) => {
+    })
+    .then( res => this.getUserPeriods() ) //pending test?
+    .catch( (err) => {
       this.setState({
         ...this.state,
         loginError: 'signup failed',
@@ -212,6 +268,7 @@ class App extends Component {
         task: 'login',
       })
     })
+
   };
 
   login () {
@@ -275,9 +332,11 @@ class App extends Component {
         task: 'logout',
       })
       
-      //response: JWT, username body or ERR?
-      /*{token: jwt OR null, username: username OR null, error: “The user does not exist” OR “The password was incorrect”} */
-    }).catch( (err) => {
+    }).then( res => this.getUserPeriods()) //pending test.
+    
+    //response: JWT, username body or ERR?
+    /*{token: jwt OR null, username: username OR null, error: “The user does not exist” OR “The password was incorrect”} */
+    .catch( (err) => {
       this.setState({
         ...this.state,
         loginError: 'login failed',
@@ -316,11 +375,15 @@ class App extends Component {
     })
     .then( res => res.json())
     .then( data => {
+
+      if(data.token) {
+        localStorage.setItem('token', data.token)
+      }
       console.log('newPeriod received data', data)
       //check if data has periods property
         //if no periods, send the user "error: dates not saved", no end or start date
           //reset start & end date
-      if(!data.period) {
+      if(!data.periods) {
         throw new Error('Error: dates not saved')
       } else {
         //if there is periods prop
