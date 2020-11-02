@@ -61,20 +61,6 @@ body {
 
 }
 
-//stand alone button in main
-.secondaryButton {
-  background-color: white;
-  padding: 0.8em;
-  border-radius: 0.3em;
-  border: 1px solid $I;
-  
-  color: $I;
-  font-size: .9em;
-  width: 40%;
-  margin: auto;
-
-}
-
 
 .periodInputContainer {
   display: flex;
@@ -104,6 +90,8 @@ body {
   color: $I;
 }
 
+
+
 .calendarHeading {
   width: 500px;
   margin: auto;
@@ -111,6 +99,30 @@ body {
   flex-direction: column;
   // justify-content: center;
   align-items: center;
+  
+
+  .primaryButton {
+    background-color: white;
+    padding: 0.8em;
+    border-radius: 0.3em;
+    border: 1px solid $J;
+    
+    color: $J;
+    font-size: .9em;
+    width: 40%;
+    margin: auto;
+    font-weight: bold;
+  }
+  .secondaryButton {
+    background-color: $J;
+    padding: 0.8em;
+    border-radius: 0.3em;
+    border: 1px solid $I;
+    color: $I;
+    font-size: .9em;
+    white-space: nowrap;
+    margin: 0.9em;
+  }
 }
 
 .monthToggle {
@@ -119,17 +131,7 @@ body {
   width: 500px;
   margin: auto;
   justify-content: center;
-  .primaryButton {
-    background-color: $J;
-    padding: 0.8em;
-    border-radius: 0.3em;
-    border: 1px solid $D;
-    color: $I;
-    font-size: .9em;
-    color: $I;
-    white-space: nowrap;
-    margin: 0.9em;
-  }
+  
 }
   
 
