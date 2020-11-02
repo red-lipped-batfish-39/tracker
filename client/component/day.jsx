@@ -41,8 +41,10 @@ class Day extends Component {
     */
     let storedStart = '';
     if (this.props.period.some(object => {
-      if (object.startDate <= dateString && object.endDate >= dateString) {
-        storedStart = object.startDate;
+      let start = object.start_date.slice(0,10);
+      let end = object.end_date.slice(0,10);
+      if (start <= dateString && end >= dateString) {
+        storedStart = start;
         return true;
       }
     })) {
