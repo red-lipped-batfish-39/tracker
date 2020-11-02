@@ -21,7 +21,7 @@ class App extends Component {
       //starts with null, change state after user verified by server response
       user: null, 
       //display period data to the user if data comes back from server. This data will contain {startDate: 'YYYY-MM-DD', endDate: 'YYYY-MM-DD'}
-      period: [{startDate: '2020-10-22', endDate: '2020-10-28'}], 
+      period: [], 
       //startDate and endDate can update from the calendar interface or the input date interface
       startDate: '', 
       endDate: '', 
@@ -257,7 +257,7 @@ class App extends Component {
       })
       
     })
-    .then( res => this.getUserPeriods() ) //pending test?
+    // .then( res => this.getUserPeriods() ) //pending test?
     .catch( (err) => {
       this.setState({
         ...this.state,
@@ -332,7 +332,8 @@ class App extends Component {
         task: 'logout',
       })
       
-    }).then( res => this.getUserPeriods()) //pending test.
+    })
+    // .then( res => this.getUserPeriods()) //pending test.
     
     //response: JWT, username body or ERR?
     /*{token: jwt OR null, username: username OR null, error: “The user does not exist” OR “The password was incorrect”} */
