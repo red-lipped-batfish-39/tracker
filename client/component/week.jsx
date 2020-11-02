@@ -11,9 +11,19 @@ class Week extends Component {
     //provide react a unique key -- week # day # month #
     const days = [];
     for (let i = 0; i < 7; i++ ) {
-      console.log(currDate.getDay());
-      console.log(currDate.toDateString())
-      days.push(<Day key={`week:${this.props.week},day:${i},month: ${this.props.month}`} year = {currDate.getFullYear()} month={currDate.getMonth()} date = {currDate.getDate()}/>);
+
+      days.push(
+        <Day 
+          key={`week:${this.props.week},day:${i},month: ${this.props.month}`} 
+          year = {currDate.getFullYear()} 
+          month={currDate.getMonth()} 
+          date = {currDate.getDate()}
+          setPeriodDates = {this.props.setPeriodDates}
+          period = {this.props.period}
+          startDate = {this.props.startDate}
+          endDate = {this.props.endDate}
+        />
+      );
       currDate.setDate(currDate.getDate() + 1);
       
     }
