@@ -73,6 +73,8 @@ class App extends Component {
 
   setPeriodDates (event) {
     //Goal -- change the start or end date of the period based on calendar click
+    //Note -- this can also be used to cancel period deletion -- so storedStart is reset after this function runs
+
     //special cases 
 
     // if startDate already exists, change endDate, not startDate
@@ -89,7 +91,8 @@ class App extends Component {
       this.setState({
         ...this.state,
         startDate: newDate,
-        endDate: ''
+        endDate: '',
+        storedStart: '',
       })
     } else if (
         this.state.startDate !== '' && 
@@ -97,13 +100,15 @@ class App extends Component {
       ) {
       this.setState({
         ...this.state,
-        endDate: newDate
+        endDate: newDate,
+        storedStart: '',
       })
     } else {
       this.setState({
         ...this.state,
         startDate: newDate,
-        endDate: ''
+        endDate: '',
+        storedStart: '',
       })
     }
      
