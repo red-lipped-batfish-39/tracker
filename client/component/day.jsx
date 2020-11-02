@@ -13,12 +13,29 @@ class Day extends Component {
     
     //if the dateString is in the period List OR is the current start or end date -- it should be highlighted. 
     //we will accomplish that with a different className
+    //this checks to see if this date is covered by the start and end date in state
     let className = '';
     if (dateString === this.props.startDate || dateString === this.props.endDate) {
       className = 'highlight'
     } else if (dateString > this.props.startDate && dateString < this.props.endDate) {
       className = 'highlight'
     }
+
+    //this checks to see if the date is in the array of period dates
+    /**ISSUE NOT RESOLVED
+     * this is an O(n) time complexity for every 
+     * day! That means it's running O(n) operations for 
+     * each day of the month for each stored 
+     * date in the database.
+     * Refactor to first select the year and month and only look at the stored data for that year and that month??
+     * Move to a higher level component so it isn't repeated for each day?
+    */
+    if (this.props.period.some(object => {
+      return object.startDate === dateString || object.endDate === dateString || (object.startDate < dateString && object.endDate > dateString)
+    })) {
+      className = 'storedHighlight';
+    }
+
     return (
       <div
         className="dayBox" 

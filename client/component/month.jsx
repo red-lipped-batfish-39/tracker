@@ -49,7 +49,13 @@ class Month extends Component {
     return (
       <>
         <div className ="calendarHeading">
-          <h2>Your Period Calendar for {this.state.monthsStorage[this.props.month]} {this.props.year}</h2>
+          <h2>Calendar for {this.state.monthsStorage[this.props.month]} {this.props.year}</h2>
+          <button 
+            className ="secondaryButton" 
+            onClick = {this.props.newPeriod}
+          >
+            Submit new period dates
+          </button><br></br>
         </div>
         <div className="calendar">
           <div className="calendarRow daysRow">
@@ -57,13 +63,6 @@ class Month extends Component {
           </div>
           {weeks}
         </div>
-        <button 
-          className ="secondaryButton" 
-          onClick = {this.props.newPeriod}
-        >
-          Submit new period dates
-        </button>
-        <br></br>
         <div className="monthToggle">
           <button onClick = {this.props.subtractMonth} className="primaryButton">Previous Month</button>
           <button onClick = {this.props.addMonth} className="primaryButton">Next Month</button>

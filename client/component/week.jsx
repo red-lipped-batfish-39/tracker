@@ -6,6 +6,8 @@ class Week extends Component {
  
   render() {
     let currDate = new Date(this.props.year, this.props.month, this.props.firstSundayDate)
+    
+    let currDateString = currDate.toISOString().slice(0,10)
 
     //create array of 7 day components, passing in the correct date info to each -- note date object cannot be passed as a prop? error message?
     //provide react a unique key -- week # day # month #
