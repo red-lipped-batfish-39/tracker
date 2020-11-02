@@ -130,19 +130,9 @@ Controller.getAllPeriods = (req, res, next) => {
       res.send(err);
     }else{
       let username = decoded.username;
-      let sqlQuery = `select start_date, end_date from period_date where user_id = (select user_id from users where username = '${username}')`;
-      db.query(sqlQuery, (err, response)=>{
-        //if select doesnt work send error
-        if(err){
-          console.log(err.stack);
-          next(err);
-        }else{
-          console.log("working")
-          res.locals.token = jwt.sign({'username': username, expiresIn:'4h'}, process.env.secret);
-          res.locals.periods = response.rows
-          next();
-        }
-      })
+      res.locals.username = username;
+      res.locals.token = jwt.sign({'username': username, expiresIn:'4h'}, process.env.secret);
+      next();
     }
 
   })
@@ -152,7 +142,18 @@ Controller.getAllPeriods = (req, res, next) => {
 
 //helper function that queries the database for all periods of given user and returns array  of all periods  (build the retturnn object in the parent function)
 Controller.makePeriodArray = (req,  res, next) => {
-
+  let sqlQuery = `select start_date, end_date from period_date where user_id = (select user_id from users where username = '${res.locals.username}')`;
+    db.query(sqlQuery, (err, response)=>{
+      //if select doesnt work send error
+      if(err){
+        console.log(err.stack);
+        next(err);
+      }else{
+        console.log("working")
+        res.locals.periods = response.rows
+        next();
+      }
+    })
 }
 
 

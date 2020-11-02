@@ -16,12 +16,12 @@ router.post('/signup', controller.postSignUp, (req, res)=>{
 })
 
 
-router.post('/period', controller.postPeriod, (req, res)=>{
+router.post('/period', controller.postPeriod, controller.makePeriodArray, (req, res)=>{
     res.status(200).json(res.locals);
 })
 
 
-router.post('/getallperiods', controller.getAllPeriods, (req, res)=>{
+router.post('/getallperiods', controller.getAllPeriods, controller.makePeriodArray, (req, res)=>{
     res.status(200).json(res.locals);
 })
 
