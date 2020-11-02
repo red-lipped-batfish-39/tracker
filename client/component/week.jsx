@@ -24,6 +24,7 @@ class Week extends Component {
           period = {this.props.period}
           startDate = {this.props.startDate}
           endDate = {this.props.endDate}
+          stageForUpdateOrDelete = {this.props.stageForUpdateOrDelete}
         />
       );
       currDate.setDate(currDate.getDate() + 1);
