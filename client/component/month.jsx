@@ -50,10 +50,6 @@ class Month extends Component {
       <>
         <div className ="calendarHeading">
           <h2>Calendar for {this.state.monthsStorage[this.props.month]} {this.props.year}</h2>
-          <div className="monthToggle">
-            <button onClick = {this.props.subtractMonth} className="primaryButton">Previous Month</button>
-            <button onClick = {this.props.addMonth} className="primaryButton">Next Month</button>
-          </div>
         </div>
         <br></br>
         <div className="calendar">
@@ -65,12 +61,16 @@ class Month extends Component {
         <br></br>
         
         <div className = "calendarHeading">
-        <button 
+          <button 
             className ="secondaryButton" 
             onClick = {this.props.newPeriod}
           >
             Submit new period dates
           </button><br></br>
+          <div className="monthToggle">
+            <button onClick = {this.props.subtractMonth} className="primaryButton">Previous Month</button>
+            <button onClick = {this.props.addMonth} className="primaryButton">Next Month</button>
+          </div>
         </div>
         
         

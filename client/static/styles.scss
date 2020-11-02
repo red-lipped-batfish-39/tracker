@@ -6,6 +6,10 @@ body {
   color: $D;
 }
 
+h1, h2 {
+  text-align: center;
+}
+
 .loginContainer {
   display: flex;
   flex-direction: column;
@@ -111,7 +115,7 @@ body {
     font-size: .9em;
     width: 40%;
     margin: auto;
-    font-weight: bold;
+
   }
   .secondaryButton {
     background-color: $J;
@@ -122,6 +126,8 @@ body {
     font-size: .9em;
     white-space: nowrap;
     margin: 0.9em;
+    font-weight: bold;
+    width: 60%;
   }
 }
 

@@ -6,8 +6,12 @@ import Logout from "./logout.jsx"
 class Profile extends Component {
  
   render() {
+    //check task to render the correct component
+
     let component;
     let task = this.props.task;
+
+
     if(task === 'login') {
       component = 
       <Login 
@@ -19,6 +23,8 @@ class Profile extends Component {
       changeTask = {this.props.changeTask}
       />
     }
+
+
     if(task === 'signup') {
       component = 
       <Signup 
@@ -31,6 +37,8 @@ class Profile extends Component {
       changeTask = {this.props.changeTask}
       />
     }
+
+    
     if(task === 'logout') {
       component = 
       <Logout
@@ -43,7 +51,6 @@ class Profile extends Component {
     return (
 
       <div>
-        <h1>This is Profile</h1>
 
         {component}
 
