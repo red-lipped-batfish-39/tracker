@@ -56,6 +56,9 @@ class Main extends Component {
         startDate = {this.props.startDate}
         endDate = {this.props.endDate}
         newPeriod = {this.props.newPeriod}
+        deletePeriod = {this.props.deletePeriod}
+        stageForUpdateOrDelete = {this.props.stageForUpdateOrDelete}
+        storedStart = {this.props.storedStart}
       />
       
       </>
