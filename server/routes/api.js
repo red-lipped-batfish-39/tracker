@@ -19,17 +19,32 @@ router.post('/signup', controller.postSignUp, (req, res)=>{
 
 //router to middleware that adds a new period
 router.post('/period', controller.postPeriod, controller.makePeriodArray, (req, res)=>{
-    res.status(200).json(res.locals);
+    //set up return object to exclude username (goal is to improve security)
+    let retObj = {
+        token: res.locals.token,
+        periods: res.locals.periods,
+    }
+    res.status(200).json(retObj);
 })
 
 //route to middleware that returns all periods for a given user
 router.post('/getallperiods', controller.getAllPeriods, controller.makePeriodArray, (req, res)=>{
-    res.status(200).json(res.locals);
+    //set up return object to exclude username (goal is to improve security)
+    let retObj = {
+        token: res.locals.token,
+        periods: res.locals.periods,
+    }
+    res.status(200).json(retObj);
 })
 
 //route to middleware that deletes a period and returns all periods for a given user
 router.delete('/period', controller.deletePeriod, controller.makePeriodArray, (req, res)=>{
-    res.sendStatus(200);
+    //set up return object to exclude username (goal is to improve security)
+    let retObj = {
+        token: res.locals.token,
+        periods: res.locals.periods,
+    }
+    res.status(200).json(retObj);
 })
 
 
