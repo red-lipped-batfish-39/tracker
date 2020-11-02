@@ -14,7 +14,7 @@ class App extends Component {
       username: '',
       password: '', 
       email: '',
-      //these are used to handle login/logout tasks 
+      //login error and task are used to handle login/logout/signup switching 
       loginError: '', 
       task: 'login', 
       //task for profile to determine which component to display
@@ -30,6 +30,8 @@ class App extends Component {
       currYearDisplay: '',
       todayDate: '',
       showMain: false,
+      //storedStart is used for staging periods for update/delete
+      storedStart: '',
     }
     this.newPeriod = this.newPeriod.bind(this);
     this.changeTask = this.changeTask.bind(this);
@@ -40,6 +42,8 @@ class App extends Component {
     this.addMonth = this.addMonth.bind(this);
     this.subtractMonth = this.subtractMonth.bind(this);
     this.setPeriodDates = this.setPeriodDates.bind(this);
+    this.stageForUpdateOrDelete = this.stageForUpdateOrDelete.bind(this);
+    this.deletePeriod = this.deletePeriod.bind(this);
   };
 
   componentDidMount () {
@@ -114,6 +118,27 @@ class App extends Component {
         [userInputType]: event.target.value
       }
     )
+  };
+
+  stageForUpdateOrDelete (storedStart) {
+    console.log('running stage for update or delete with ', storedStart)
+    this.setState({
+      ...this.state,
+      storedStart: storedStart,
+    })
+  };
+
+  deletePeriod () {
+    console.log('deleting period that started on ', this.state.storedStart)
+    /**ISSUE
+     * Need to create a delete fetch request, send storedStart date
+     * 
+    */
+    //reset storedStart to ''
+    this.setState({
+      ...this.state,
+      storedStart: '',
+    })
   };
 
 
@@ -363,12 +388,15 @@ class App extends Component {
       newPeriod = {this.newPeriod}
       addMonth = {this.addMonth}
       subtractMonth = {this.subtractMonth}
+      stageForUpdateOrDelete = {this.stageForUpdateOrDelete}
+      deletePeriod = {this.deletePeriod}
       startDate = {this.state.startDate}
       endDate = {this.state.endDate}
       currMonthDisplay = {this.state.currMonthDisplay} 
       currYearDisplay = {this.state.currYearDisplay}
       todayDate = {this.state.todayDate}
       period = {this.state.period}
+      storedStart = {this.state.storedStart}
       />) 
     } 
 
