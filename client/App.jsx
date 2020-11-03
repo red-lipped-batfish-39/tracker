@@ -65,17 +65,19 @@ class App extends Component {
   }
   
     getUserPeriods () {
+      let token = localStorage.getItem('token');
     //fetch request to display current user data
     fetch('/api/getallperiods', {
-      mode: 'POST',
-      header: {'Content-Type': 'application/json'},
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
-        token: localStorage.getItem('token')
+        token: token,
       }),
     })
 
     .then(res => res.json())
     .then( data => {
+      
       if(data.token) {
         localStorage.setItem('token', data.token)
       }
@@ -85,7 +87,7 @@ class App extends Component {
       })
     })
     .catch( err => {
-      localStorage.removeItem('token');
+      // localStorage.removeItem('token');
       this.setState({
         ...this.state,
         task: 'login',
@@ -257,7 +259,7 @@ class App extends Component {
       })
       
     })
-    // .then( res => this.getUserPeriods() ) //pending test?
+    .then( res => this.getUserPeriods() ) //pending test?//
     .catch( (err) => {
       this.setState({
         ...this.state,
@@ -304,7 +306,7 @@ class App extends Component {
     .then( res => res.json())
     .then( data => {
       // console.log('this is login data', data)
-      if(data.err) {
+      if(data.err) { //if returns error object
         throw new Error('fetch fail')
       }
       if(data.error) {
@@ -323,6 +325,7 @@ class App extends Component {
       //add jwt to local storage
         //setState to user passed back by server
           //setUser * password state to empty string ''
+      console.log('inside login function, token received is ', data.token, 'currently adding to localStorage')
       localStorage.setItem('token', data.token)
       this.setState({
         ...this.state,
@@ -333,7 +336,7 @@ class App extends Component {
       })
       
     })
-    // .then( res => this.getUserPeriods()) //pending test.
+    .then( () => setTimeout(this.getUserPeriods(), 500)) //pending test.
     
     //response: JWT, username body or ERR?
     /*{token: jwt OR null, username: username OR null, error: “The user does not exist” OR “The password was incorrect”} */
@@ -485,6 +488,7 @@ class App extends Component {
       todayDate = {this.state.todayDate}
       period = {this.state.period}
       storedStart = {this.state.storedStart}
+      getUserPeriods = {this.getUserPeriods}
       />) 
     } 
 

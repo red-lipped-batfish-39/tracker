@@ -43,6 +43,7 @@ class Main extends Component {
         /><br></br>
         <button className ="primaryButton" onClick = {this.props.newPeriod}>Submit these dates</button><br></br>
       </div> */}
+      
       <Month 
         firstSundayDate = {firstSunday.getDate()} 
         firstSundayMonth = {firstSunday.getMonth()} 
@@ -59,6 +60,7 @@ class Main extends Component {
         deletePeriod = {this.props.deletePeriod}
         stageForUpdateOrDelete = {this.props.stageForUpdateOrDelete}
         storedStart = {this.props.storedStart}
+
       />
       
       </>
