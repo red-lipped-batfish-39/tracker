@@ -19,9 +19,9 @@ We used a Node/Express/PostgreSQL backend with a React front end environment.
 
 There are two tables - users and period_date.
 
-Create your own database and store PG_URI and PG_PASSWORD in an .env file. 
+Create your own database and store `PG_URI = 'your-pg-uri'` and `PG_PASSWORD = 'your-pg-password'` in an .env file. 
 
-Create a secret key and store it in the .env file as well. `secret: 'your-key-here'`
+Create a secret key and store it in the .env file as well. `secret = 'your-key-here'`
 
 ```create table users (
 user_id serial primary key,
