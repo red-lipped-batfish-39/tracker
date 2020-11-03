@@ -8,7 +8,6 @@ and delete past periods, and view previous inputs in our UX friendly calendar!
 
 We used a Node/Express/PostgreSQL backend with a React front end environment.
 
-# Data Flow
 
 # Routes for client/server communication
 
@@ -69,7 +68,6 @@ Currently, the app has one stateful component (App in App.jsx). The component tr
          * Day (7)
        * buttonDisplay (Note - not a component, but toggles between delete and save depending on whether or not the user has clicked on a stored period)
 
-# Databases
 
 # Fixes, features, and overhauls 
 
@@ -83,6 +81,7 @@ Currently, the app has one stateful component (App in App.jsx). The component tr
 - [ ] Can you pass date objects through state? Currently, date objects are not passed but instead Date, Year, and Month are passed and new date objects are initialized in the components that use them.
 - [ ] Can you filter the period [] array to only include the data for that month before passing it down from main? Would that actually improve the functionality in day.jsx that checks to see if the day would fall into a period range? How would that work with the 5 - week display instead of the month display?
 - [ ] Is there a faster/more efficient way to generate a calendar than calculating the last Sunday that occured before the 1st of the month through recursion (See method in main.jsx).
+- [ ] **large** Create a testing suite. The sky is the limit, but we would love to see tests that look at the controllers and the fetch requests, particularly to help with error handling. What happens if you send an error object back to the client? What happens if you send an empty {} to the server? What happens if you send an expired JWT? etc. After you've got that down, can you make sure that the toggling between login/signup/signout works? Does state reset? We installed jest and started to work on describes, but we didn't get far enough to put anything into our main branch. 
 
 2. Features, large and small
 - [ ] Highlight the current date in a different color or with a different border. 
@@ -92,7 +91,7 @@ Currently, the app has one stateful component (App in App.jsx). The component tr
 - [ ] Display *future* data in a different color than past/current data. Any period dates entered that are past today's date should be highlighted in a different color.
 - [ ] **large** Create a detailed display for a single day. Create a way for the user to get to that day display from the month calendar. Allow the user to input notes / read notes from the day display. Display a star in the monthly calendar if a note exists on that day.
 - [ ] **large ish** Add descriptive analytics, hopefully on a separate page. This could be days since last period, average length of cycles, etc. Feel free to add graphs! *Bonus* Allow user to opt out of these analytics.
-- [ ] **large** Create a testing suite. The sky is the limit, but we would love to see tests that look at the controllers and the fetch requests, particularly to help with error handling. What happens if you send an error object back to the client? What happens if you send an empty {} to the server? What happens if you send an expired JWT? etc. After you've got that down, can you make sure that the toggling between login/signup/signout works? Does state reset? We installed jest and started to work on describes, but we didn't get far enough to put anything into our main branch. 
+
 
 3. Overhauls
 -  [ ] **Issue**: This app has too much information stored in one component. Passing down state is a huge problem and is difficult to debug. This app needs to be redone as a Redux App.
