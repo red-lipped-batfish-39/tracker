@@ -82,6 +82,7 @@ Currently, the app has one stateful component (App in App.jsx). The component tr
 - [ ] Can you filter the period [] array to only include the data for that month before passing it down from main? Would that actually improve the functionality in day.jsx that checks to see if the day would fall into a period range? How would that work with the 5 - week display instead of the month display?
 - [ ] Is there a faster/more efficient way to generate a calendar than calculating the last Sunday that occured before the 1st of the month through recursion (See method in main.jsx).
 - [ ] **large** Create a testing suite. The sky is the limit, but we would love to see tests that look at the controllers and the fetch requests, particularly to help with error handling. What happens if you send an error object back to the client? What happens if you send an empty {} to the server? What happens if you send an expired JWT? etc. After you've got that down, can you make sure that the toggling between login/signup/signout works? Does state reset? We installed jest and started to work on describes, but we didn't get far enough to put anything into our main branch. 
+- [ ] Should passwords be stored in state during the login process? Does this cause uneccessary security issues? Can passwords be encrypted client side so that they are not sent as plain text to the server?
 
 2. Features, large and small
 - [ ] Highlight the current date in a different color or with a different border. 
