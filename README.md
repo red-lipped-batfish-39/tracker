@@ -10,13 +10,7 @@ We used a Node/Express/PostgreSQL backend with a React front end environment.
 
 # Database tables
 
-**users**
-| user_id  | username  | Email  | Password |
-|---|---|---|---|---|
-
-**period_date**
-| period_id  | start_date  | end_date  | user_id |
-|---|---|---|---|---|
+There are two tables - users and period_date.
 
 Create your own database and store PG_URI and PG_PASSWORD in an .env file. Here is the setup for creating tables.
 
