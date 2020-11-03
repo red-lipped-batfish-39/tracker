@@ -39,7 +39,18 @@ We used a Node/Express/PostgreSQL backend with a React front end environment.
       * styles.scss
     * index.html 
     * **index.js** This file is the entry point for webpack. 
-* Server
+* server
+  * controllers
+    * controller.js
+  * models
+    * **models.js** - postgreSQL was used, so this file exports a query model
+  * routes
+    * **api.js** - currently handles all requests from App
+  * server.js
+* .env **NOTE -- you have to make your own .env file with a PG_URI, PG_PASSWORD, and secret. Our db is not public** 
+* serversetup.sql **NOTE -- use to create your own tables. See db section for more details.**
+* webpack.config.js 
+* package.json *Install all dependencies here. Redux needs to be added as another dependency.*
 
 # Components and State
 
