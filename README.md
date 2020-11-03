@@ -8,6 +8,8 @@ and delete past periods, and view previous inputs in our UX friendly calendar!
 
 We used a Node/Express/PostgreSQL backend with a React front end environment.
 
+# Data Flow
+
 # Routes for client/server communication
 
 
@@ -22,7 +24,6 @@ We used a Node/Express/PostgreSQL backend with a React front end environment.
 
 # File structure, dev environment, webpack
 
-* \__tests__
 * client
     * component
       * day.jsx
@@ -67,15 +68,21 @@ Currently, the app has one stateful component (App in App.jsx). The component tr
        * Week (5)
          * Day (7)
        * buttonDisplay (Note - not a component, but toggles between delete and save depending on whether or not the user has clicked on a stored period)
-         
+
+# Databases
+
 # Fixes, features, and overhauls 
 
 *These are things we haven't implemented yet but would love to see*
 
-1. Fixes
+1. Fixes and Potential improvements
 - [ ] Improve error handling on logins. What happens if the user isn't found? Password incorrect? Are we reaching the catch handler on the promises in App? Make sure that state is reset after unsuccessful login attempts. The state should reset to its initial value, except the information related to current date which only populates once on component did mount. Make sure the local storage clears after user logs out or signs in unsuccessfully. 'undefined' should NEVER be stored in local storage as a token.
 - [ ] If there is an error in the getUserPeriods(){} function in App.jsx, *do not* update the period array in state. This throws errors if the period array is reset to undefined instead of an empty array. An error in the getUserPeriods probably means there is an invalid jwt, and the local storage should be cleared, state reset, and user sent back to login.
 - [  ] If this.state.period is undefined, main should not attempt to render. Error is currently thrown if this happens, and entire page crashes. If this happens at any point, the local storage should be deleted, user sent back to login, and state cleared.
+- [ ] Can you get today's date before component did mount? If so, you could get rid of the showMain property in state.
+- [ ] Can you pass date objects through state? Currently, date objects are not passed but instead Date, Year, and Month are passed and new date objects are initialized in the components that use them.
+- [ ] Can you filter the period [] array to only include the data for that month before passing it down from main? Would that actually improve the functionality in day.jsx that checks to see if the day would fall into a period range? How would that work with the 5 - week display instead of the month display?
+- [ ] Is there a faster/more efficient way to generate a calendar than calculating the last Sunday that occured before the 1st of the month through recursion (See method in main.
 
 2. Features, large and small
 - [ ] Highlight the current date in a different color or with a different border. 
@@ -85,6 +92,9 @@ Currently, the app has one stateful component (App in App.jsx). The component tr
 - [ ] Display *future* data in a different color than past/current data. Any period dates entered that are past today's date should be highlighted in a different color.
 - [ ] **large** Create a detailed display for a single day. Create a way for the user to get to that day display from the month calendar. Allow the user to input notes / read notes from the day display. Display a star in the monthly calendar if a note exists on that day.
 - [ ] **large ish** Add descriptive analytics, hopefully on a separate page. This could be days since last period, average length of cycles, etc. Feel free to add graphs! *Bonus* Allow user to opt out of these analytics.
+- [ ] **large** Create a testing suite. The sky is the limit, but we would love to see tests that look at the controllers and the fetch requests, particularly to help with error handling. What happens if you send an error object back to the client? What happens if you send an empty {} to the server? What happens if you send an expired JWT? etc. We downloaded jest and started to work on describes, but we didn't get far enough to put anything into our main branch.
 
 3. Overhauls
 -  [ ] **Issue**: This app has too much information stored in one component. Passing down state is a huge problem and is difficult to debug. This app needs to be redone as a Redux App.
+- [ ] **Issue**: This app has too much information stored in one component. (Oh that's the same issue!) Different idea - use react hooks to refactor current functionality.
+- [ ] **Issue**: We rely on toggling between certain buttons and components based on properties in state. This can be difficult to debug. Look at storedStart as an example -- this is used to change the month component buttonDisplay and the day component onClick action, or look at *showMain* which changes only after the component first mounts and the date can be accessed. *task* is also used to toggle between login, signup, and logout. This may be able to be refactored with React Router.
