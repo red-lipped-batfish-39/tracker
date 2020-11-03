@@ -37,31 +37,3 @@ Currently, the app has one stateful component (App in App.jsx). The component tr
        * Week (5)
          * Day (7)
          
-For each component, we'll delve into what state and functionality it needs
-
-* App
- 1. State:
-   a. username | String | initial '' | used to keep track of user input from login or signup component | changed by trackInput function in App
-   b. password | String | initial '' | used to keep track of user input from login or signup component | changed by trackInput function in App
-   c. email
-   d. loginError
-   e. task
-   f. user
-   g. period
-   h. startDate
-   i. endDate
-   j. currMonthDisplay
-   k. currYearDisplay
-   l. todayDate
-   m. showMain
-   n. storedStart
- 2. Functions: 
-    * Profile
-      * Login
-      * Signup
-      * Logout
-    * Main
-      * Month
-       * Day Labels
-       * Week (5)
-         * Day (7)
