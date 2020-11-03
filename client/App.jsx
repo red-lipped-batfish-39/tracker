@@ -65,7 +65,18 @@ class App extends Component {
   }
   
     getUserPeriods () {
+      //error handling -- check to see if token is defined -- if not, user needs to go back to login
       let token = localStorage.getItem('token');
+      if (!token) {
+        this.setState({
+          ...this.state,
+          task: 'login',
+          username: '',
+          period: [],
+          password: '',
+          loginError: 'login and / or authorization failed'
+        })
+      }
     //fetch request to display current user data
     fetch('/api/getallperiods', {
       method: 'POST',
@@ -80,11 +91,14 @@ class App extends Component {
       
       if(data.token) {
         localStorage.setItem('token', data.token)
+      } 
+      if (data.periods !== undefined) {
+        this.setState({
+          ...this.state,
+          period: data.periods
+        })
       }
-      this.setState({
-        ...this.state,
-        period: data.periods
-      })
+      
     })
     .catch( err => {
       // localStorage.removeItem('token');
@@ -92,6 +106,7 @@ class App extends Component {
         ...this.state,
         task: 'login',
         user: null, 
+        period: [],
         loginError: 'authentication failed, try logging in again',
       })
     })
@@ -308,6 +323,7 @@ class App extends Component {
       // console.log('this is login data', data)
       if(data.err) { //if returns error object
         throw new Error('fetch fail')
+        return;
       }
       if(data.error) {
         //send error based on user or pass
@@ -318,22 +334,35 @@ class App extends Component {
           username: '',
           password: '',
         })
+        return;
       } 
+      if (!data.token || !data.username) {
+        this.setState({
+          ...this.state,
+          loginError: data.error,
+          username: '',
+          password: ''
+        })
+        return;
+      }
       //set local storage (token)
         //localStorage.setItem with token
           //access with localStorage.getItem(token)
       //add jwt to local storage
         //setState to user passed back by server
           //setUser * password state to empty string ''
-      console.log('inside login function, token received is ', data.token, 'currently adding to localStorage')
-      localStorage.setItem('token', data.token)
-      this.setState({
-        ...this.state,
-        user: data.username,
-        username: '',
-        password: '',
-        task: 'logout',
-      })
+      if (data.token) {
+        // console.log('inside login function, token received is ', data.token, 'currently adding to localStorage')
+        localStorage.setItem('token', data.token)
+        this.setState({
+          ...this.state,
+          user: data.username,
+          username: '',
+          password: '',
+          task: 'logout',
+        })
+      }
+      
       
     })
     .then( () => setTimeout(this.getUserPeriods(), 500)) //pending test.
@@ -346,6 +375,8 @@ class App extends Component {
         loginError: 'login failed',
         username: '',
         password: '',
+        period: [],
+        task: 'login',
       })
     })
   };
