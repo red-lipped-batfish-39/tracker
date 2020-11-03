@@ -50,7 +50,7 @@ We used a Node/Express/PostgreSQL backend with a React front end environment.
 * .env **NOTE -- you have to make your own .env file with a PG_URI, PG_PASSWORD, and secret. Our db is not public** 
 * serversetup.sql **NOTE -- use to create your own tables. See db section for more details.**
 * webpack.config.js 
-* package.json *Install all dependencies here. Redux needs to be added as another dependency.*
+* package.json 
 
 # Components and State
 
