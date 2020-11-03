@@ -61,19 +61,19 @@ Currently, the app has one stateful component (App in App.jsx). The component tr
 
 *These are things we haven't implemented yet but would love to see*
 
-A. Fixes
-  [ ] Improve error handling on logins. What happens if the user isn't found? Password incorrect? Are we reaching the catch handler on the promises in App? Make sure that state is reset after unsuccessful login attempts. The state should reset to its initial value, except the information related to current date which only populates once on component did mount. Make sure the local storage clears after user logs out or signs in unsuccessfully. 'undefined' should NEVER be stored in local storage as a token.
-  [ ] If there is an error in the getUserPeriods(){} function in App.jsx, *do not* update the period array in state. This throws errors if the period array is reset to undefined instead of an empty array. An error in the getUserPeriods probably means there is an invalid jwt, and the local storage should be cleared, state reset, and user sent back to login.
-  [  ] If this.state.period is undefined, main should not attempt to render. Error is currently thrown if this happens, and entire page crashes. If this happens at any point, the local storage should be deleted, user sent back to login, and state cleared.
+1. Fixes
+- [ ] Improve error handling on logins. What happens if the user isn't found? Password incorrect? Are we reaching the catch handler on the promises in App? Make sure that state is reset after unsuccessful login attempts. The state should reset to its initial value, except the information related to current date which only populates once on component did mount. Make sure the local storage clears after user logs out or signs in unsuccessfully. 'undefined' should NEVER be stored in local storage as a token.
+- [ ] If there is an error in the getUserPeriods(){} function in App.jsx, *do not* update the period array in state. This throws errors if the period array is reset to undefined instead of an empty array. An error in the getUserPeriods probably means there is an invalid jwt, and the local storage should be cleared, state reset, and user sent back to login.
+- [  ] If this.state.period is undefined, main should not attempt to render. Error is currently thrown if this happens, and entire page crashes. If this happens at any point, the local storage should be deleted, user sent back to login, and state cleared.
 
-B. Features, large and small
- [ ] Highlight the current date in a different color or with a different border. 
- [ ] Display auxiliary days (before and after each month) in light gray to distinguish between those dates and current month.
- [ ] Fix the border radius on the edges of the calendar to avoid having to have a border inside a border and keep border radius consistent at 0.3em.
- [ ] Add a route to check to see if the JWT exists already, and send the client the username. Create a fetch request from App to send the jwt from local storage to the server upon an app refresh so the user doesn't have to log in again. 
- [ ] Display *future* data in a different color than past/current data. Any period dates entered that are past today's date should be highlighted in a different color.
- [ ] **large** Create a detailed display for a single day. Create a way for the user to get to that day display from the month calendar. Allow the user to input notes / read notes from the day display. Display a star in the monthly calendar if a note exists on that day.
- [ ] **large ish** Add descriptive analytics, hopefully on a separate page. This could be days since last period, average length of cycles, etc. Feel free to add graphs! *Bonus* Allow user to opt out of these analytics.
+2. Features, large and small
+- [ ] Highlight the current date in a different color or with a different border. 
+- [ ] Display auxiliary days (before and after each month) in light gray to distinguish between those dates and current month.
+- [ ] Fix the border radius on the edges of the calendar to avoid having to have a border inside a border and keep border radius consistent at 0.3em.
+- [ ] Add a route to check to see if the JWT exists already, and send the client the username. Create a fetch request from App to send the jwt from local storage to the server upon an app refresh so the user doesn't have to log in again. 
+- [ ] Display *future* data in a different color than past/current data. Any period dates entered that are past today's date should be highlighted in a different color.
+- [ ] **large** Create a detailed display for a single day. Create a way for the user to get to that day display from the month calendar. Allow the user to input notes / read notes from the day display. Display a star in the monthly calendar if a note exists on that day.
+- [ ] **large ish** Add descriptive analytics, hopefully on a separate page. This could be days since last period, average length of cycles, etc. Feel free to add graphs! *Bonus* Allow user to opt out of these analytics.
 
-C. Overhauls
-  [ ] **Issue**: This app has too much information stored in one component. Passing down state is a huge problem and is difficult to debug. This app needs to be redone as a Redux App.
+3. Overhauls
+-  [ ] **Issue**: This app has too much information stored in one component. Passing down state is a huge problem and is difficult to debug. This app needs to be redone as a Redux App.
