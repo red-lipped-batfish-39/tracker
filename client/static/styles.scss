@@ -1,0 +1,256 @@
+@import './variables';
+@import url("https://fonts.googleapis.com/css2?family=Cabin&family=Oswald&display=swap");
+
+body {
+  font-family: Cabin;
+  color: $D;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+.loginContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: $A;
+  margin: auto;
+  margin-bottom: 0.1em;
+  // need to do a media query -- this would be for large screen
+  width: 500px;
+  border-radius: 0.3em;
+  padding: 0.3em;
+  border: 1px solid $D;
+}
+
+.loginContainer >* {
+  padding-top: 1%;
+}
+
+.loginContainer input {
+  padding: 0.8em;
+  width: 60%;
+  border-radius: 0.3em;
+  border: 1px solid $D;
+}
+
+// .loginContainer input :hover {
+//   padding: 0.5em;
+//   width: 60%;
+//   border-radius: 0.3em;
+//   border: 1px solid $D;
+// }
+
+.loginContainer .primaryButton {
+  background-color: $E;
+  padding: 0.8em;
+  border-radius: 0.3em;
+  border: 1px solid $D;
+  width: 40%;
+  color: $D;
+  font-size: .9em;
+  font-weight: bold;
+}
+
+.loginContainer .secondaryButton {
+  background-color: white;
+  padding: 0.8em;
+  border-radius: 0.3em;
+  border: 1px solid $D;
+  width: 40%;
+  color: $D;
+  font-size: .9em;
+
+}
+
+
+.periodInputContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin: auto;
+  // need to do a media query -- this would be for large screen
+  width: 500px;
+  margin-bottom: 0.1em;
+  background-color: $H;
+  border-radius: 0.3em;
+  padding: 0.3em;
+  color: $I;
+
+}
+
+.periodInputContainer .primaryButton {
+  background-color: $J;
+  padding: 0.8em;
+  border-radius: 0.3em;
+  border: 1px solid $D;
+  width: 40%;
+  color: $I;
+  font-size: .9em;
+  font-weight: bold;
+  color: $I;
+}
+
+
+
+.calendarHeading {
+  width: 500px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+  align-items: center;
+  
+
+  .primaryButton {
+    background-color: white;
+    padding: 0.8em;
+    border-radius: 0.3em;
+    border: 1px solid $J;
+    // font-weight: bold;
+    color: $J;
+    font-size: .9em;
+    width: 40%;
+    margin: auto;
+    white-space: nowrap;
+  }
+  .secondaryButton {
+    background-color: $J;
+    padding: 0.8em;
+    border-radius: 0.3em;
+    border: 1px solid $I;
+    color: $I;
+    font-size: .9em;
+    white-space: nowrap;
+    margin: 0.9em;
+    font-weight: bold;
+    width: 60%;
+  }
+}
+
+.monthToggle {
+  display: flex;
+  flex-direction: row; 
+  width: 500px;
+  margin: auto;
+  justify-content: center;
+  
+}
+  
+
+.periodInputContainer input {
+  padding: 0.8em;
+  width: 60%;
+  border-radius: 0.3em;
+  border: 1px solid $I;
+  font-size: 1.2em;
+}
+
+//different color scheme for logout? -- removed
+
+// .logout {
+//   background-color: $F;
+//   color: $I;
+// }
+
+// .logout .primaryButton {
+//   background-color: $J;
+//   padding: 0.8em;
+//   border-radius: 0.3em;
+//   border: 1px solid $D;
+//   width: 40%;
+//   color: $I;
+//   font-size: .9em;
+//   font-weight: bold;
+//   color: $I;
+// }
+
+.calendarRow{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  width: 500px;
+  margin: auto;
+  
+  // border-radius: 0.3em;
+  // padding: 0.3em;
+  color: $I;
+  // border: 1px solid $I;
+  padding: 0;
+}
+
+.daysRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  width: 500px;
+  // margin: auto;
+  margin: 0;
+  height: 5%;
+  
+  border-radius: 0.3em;
+  // padding: 0.3em;
+  color: $I;
+  // border: 1px solid $I;
+  padding: 0;
+
+}
+
+.dayLabel {
+  background-color: $H;
+  width: 90%;
+  text-align: center;
+  // border-radius: 0.3em;
+  margin: 0;
+  padding: 0;
+  border: 1px solid $I;
+}
+
+.dayBox {
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  color: $I;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  border: 1px solid $I;
+  // background-color: $H;
+}
+
+
+
+.dayBox > * {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+
+.dayBox :hover {
+  background-color: $H;
+  background-position: 100% 100%;
+  // height: 2em;
+}
+
+.storedHighlight {
+  background-color: $J !important;
+}
+
+.highlight {
+  background-color: $F !important;
+}
+
+.calendar{
+  width: 500px;
+  margin: auto;
+  border: .1em solid $I;
+  border-radius: 0.3em
+}
+
