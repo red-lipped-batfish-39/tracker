@@ -10,10 +10,10 @@ We used a Node/Express/PostgreSQL backend with a React front end environment.
 
 # Setup & Running Code
 
--`npm install` installs all dependencies in the pacakge.json folder
--`npm run dev` runs development environment at http://localhost/8080 with a server proxy at http://localhost/3000
--`npm run build` creates build.js in a build folder
--`npm run start` can be run after npm run build
+- [ ] `npm install` installs all dependencies in the pacakge.json folder
+- [ ] `npm run dev` runs development environment at http://localhost/8080 with a server proxy at http://localhost/3000
+- [ ] `npm run build` creates build.js in a build folder
+- [ ] `npm run start` can be run after npm run build
 
 # Database tables & Environment variables
 
