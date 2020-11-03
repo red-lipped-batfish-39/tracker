@@ -105,6 +105,7 @@ Currently, the app has one stateful component (App in App.jsx). The component tr
 
 1. Fixes and Potential improvements
 - [ ] Improve error handling on logins. What happens if the user isn't found? Password incorrect? Are we reaching the catch handler on the promises in App? Make sure that state is reset after unsuccessful login attempts. The state should reset to its initial value, except the information related to current date which only populates once on component did mount. Make sure the local storage clears after user logs out or signs in unsuccessfully. 'undefined' should NEVER be stored in local storage as a token.
+- [ ] Improve error handling on signup. Send specific message back to the user if the username already exists or the email already exists.
 - [ ] If there is an error in the getUserPeriods(){} function in App.jsx, *do not* update the period array in state. This throws errors if the period array is reset to undefined instead of an empty array. An error in the getUserPeriods probably means there is an invalid jwt, and the local storage should be cleared, state reset, and user sent back to login.
 - [ ] If this.state.period is undefined, main should not attempt to render. Error is currently thrown if this happens, and entire page crashes. If this happens at any point, the local storage should be deleted, user sent back to login, and state cleared.
 - [ ] Can you get today's date before component did mount? If so, you could get rid of the showMain property in state.
