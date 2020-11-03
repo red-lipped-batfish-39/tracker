@@ -8,6 +8,41 @@ and delete past periods, and view previous inputs in our UX friendly calendar!
 
 We used a Node/Express/PostgreSQL backend with a React front end environment.
 
+# Database tables
+
+**users**
+| user_id  | username  | Email  | Password |
+|---|---|---|---|---|
+
+**period_date**
+| period_id  | start_date  | end_date  | user_id |
+|---|---|---|---|---|
+
+Create your own database and store PG_URI and PG_PASSWORD in an .env file. Here is the setup for creating tables.
+
+```create table users (
+user_id serial primary key,
+username varchar(50) unique,
+email varchar(250) unique,
+password varchar(250))
+with(
+    oids = false
+)
+;
+
+
+create table period_date(
+  period_id serial primary key,
+  start_date date,
+  end_date date,
+  user_id int not null,
+  constraint user_id foreign key(user_id) references users(user_id)
+  
+)
+with(
+    oids = false
+);
+```
 
 # Routes for client/server communication
 
@@ -19,7 +54,7 @@ We used a Node/Express/PostgreSQL backend with a React front end environment.
 | '/api/signup'  | POST  | *Body*  {username: 'string', password: 'string', email: 'string'}  | {token: jwt, username: 'string'}  | *Note* The username is used to set the 'user' property on state. The jwt should be added to local storage on the client side to be sent with all future requests. The passwords are encrypted using bcrypt before adding to database.   |
 | '/api/period'  | POST  | *Body* {token: jwt, startDate: 'YYYY-MM-DD', endDate: 'YYYY-MM-DD'}  | {token: jwt (refreshed), periods: [{start_date: 'ISO STRING', end_date: 'ISO STRING'}, {...}]  | Note - JWT's have the username stored in the payload. JWTs expire after 4 hours, so we refresh each time the user does an action. Server side verifies and decodes the JWT to get the username.  |
 | '/api/getallperiods'  | POST  | {token: jwt}  | {periods: [{start_date: 'ISO STRING', end_date: 'ISO STRING'}, {...}]}  | Note: This is invoked after a set Timeout after the login. This populates the state with initial period array so that the calendar can render correctly. This was very buggy and needs additional error handling. Ex -- validate jwt before sending post request. Make sure state clears && get all periods does not run if login was unsuccessful, etc.  |
-| 'api/period'  | DELETE  | {token: jwt, startDate: 'YYYY-MM-DD'  | {periods: [{start_date: 'ISO_STRING', end_date: 'ISO STRING'}, {...}]}  |   |
+| 'api/period'  | DELETE  | {token: jwt, startDate: 'YYYY-MM-DD'  | {periods: [{start_date: 'ISO_STRING', end_date: 'ISO STRING'}, {...}]}  | Return all periods after the delete  |
 
 # File structure, dev environment, webpack
 
@@ -67,6 +102,7 @@ Currently, the app has one stateful component (App in App.jsx). The component tr
        * Week (5)
          * Day (7)
        * buttonDisplay (Note - not a component, but toggles between delete and save depending on whether or not the user has clicked on a stored period)
+       * button for Next Month & Previous Month (Not components)
 
 
 # Fixes, features, and overhauls 
@@ -95,6 +131,6 @@ Currently, the app has one stateful component (App in App.jsx). The component tr
 
 
 3. Overhauls
--  [ ] **Issue**: This app has too much information stored in one component. Passing down state is a huge problem and is difficult to debug. This app needs to be redone as a Redux App.
-- [ ] **Issue**: This app has too much information stored in one component. (Oh that's the same issue!) Different idea - use react hooks to refactor current functionality.
-- [ ] **Issue**: We rely on toggling between certain buttons and components based on properties in state. This can be difficult to debug. Look at storedStart as an example -- this is used to change the month component buttonDisplay and the day component onClick action, or look at *showMain* which changes only after the component first mounts and the date can be accessed. *task* is also used to toggle between login, signup, and logout. This may be able to be refactored with React Router.
+-  [ ] **Redux**: This app has too much information stored in one component. Passing down state is a huge problem and is difficult to debug. This app needs to be redone as a Redux App.
+- [ ] **React Hooks**: This app has too much information stored in one component. (Oh that's the same issue!) Different idea - use react hooks to refactor current functionality.
+- [ ] **React Route**: We rely on toggling between certain buttons and components based on properties in state. This can be difficult to debug. Look at *storedStart* as an example -- this is used to change the month component buttonDisplay and the day component onClick action, or look at *showMain* which changes only after the component first mounts and the date can be accessed. *task* is also used to toggle between login, signup, and logout. This may be able to be refactored with React Router.
